@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   get   "/auth/:provider/callback" => "sessions#create"
   get   "/signout" => "sessions#destroy"
 
-  resources :users
+  get   "/:username" => "users#show"
 
 end

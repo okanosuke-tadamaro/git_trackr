@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   end
 
   def self.parse_github_callback(code)
-    return JSON.parse(RestClient.post("https://github.com/login/oauth/access_token", {client_id: ENV['CLIENT_ID'], client_secret: ENV['CLIENT_SECRET'], code: code}, { accept: :json }))
+    return JSON.parse(RestClient.post("https://github.com/login/oauth/access_token", {client_id: ENV['GITHUB_CLIENT_ID'], client_secret: ENV['GITHUB_CLIENT_SECRET'], code: code}, { accept: :json }))
   end
 
   def self.new_github_client(access_token)
