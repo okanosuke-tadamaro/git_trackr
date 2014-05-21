@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+	has_and_belongs_to_many :projects
+
   def self.oauth_link
     return "https://github.com/login/oauth/authorize?client_id=#{ENV['GITHUB_CLIENT_ID']}"
   end
