@@ -3,7 +3,7 @@ var ProjectItemView = Backbone.View.extend({
 	tagName: 'li',
 	className: 'project-item',
 	events: {
-
+		
 	},
 	initialize: function() {
 		console.log('projectItemView is initialized');
