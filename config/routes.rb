@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
-  root  "sessions#index"
+  root  "users#show"
   
   # SIGNIN & SIGNOUT
   get   "/auth/:provider/callback" => "sessions#create"
   get   "/signout" => "sessions#destroy"
 
-  get   "/:username" => "users#show"
+  resources :projects
+  resources :tasks
 
 end
