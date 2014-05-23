@@ -1,7 +1,17 @@
-<p><%= current_user.username %></p>
-<div id="projects"></div>
-
+<div id="side-bar">
+	<p><%= current_user.username %></p>
+</div>
+<div id="content">
+	<div id="projects"></div>
+</div>
 <!-- BACKBONE TEMPLATES -->
 <script type="text/template" id="project-item-template">
-	<p>poop</p>
+	<div class="project-item-box">
+		<div class="project-box-header">
+		<h3><%%= name %></h3>
+		</div>
+		<div class="project-box-content">
+			<p><%%= description %></p>
+		</div>
+	</div>
 </script>
