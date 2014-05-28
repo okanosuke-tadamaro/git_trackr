@@ -20,7 +20,11 @@ body {
 	height: 100%;
 	position: fixed;
 	left: 0;
-	background-color: white;
+	background-color: #59D98E;
+	color: white;
+	.side-bar-content {
+		margin: 40px 15px 40px 15px;
+	}
 }
 
 #content {
@@ -37,7 +41,6 @@ body {
 			padding: 0;
 			.project-item {
 				display: box;
-				cursor: pointer;
 				float: left;
 				margin-right: $projectboxmargin;
 				margin-bottom: $projectboxmargin;
@@ -48,20 +51,30 @@ body {
 					border-radius: 5px;
 					.project-box-header {
 						height: 40px;
-						background-color: #2ecc71;
+						background-color: #48D583;
 						border-radius: 5px 5px 0 0;
 						h3 {
+							float: left;
 							text-transform: uppercase;
 							line-height: 20px;
 							padding: 10px 0 0 10px;
 							font-size: 16px;
 							color: white;
 						}
+						.project-menu {
+							float: right;
+							i { color: white; font-size: 16px; line-height: 20px; margin: 12px 10px 0 0; }
+						}
 					}
 					.project-box-content {
 						padding: 10px;
 						p { font-size: 14px; }
 					}
+				}
+				.project-item-box:hover {
+					transition: all .2s;
+					transform:rotate(3deg);
+					-webkit-transform:rotate(3deg);
 				}
 			}
 		}
