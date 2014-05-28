@@ -1,4 +1,4 @@
-class CreateNestedTasks < ActiveRecord::Migration
+class CreateNestedTask < ActiveRecord::Migration
   def change
     create_table :nested_tasks do |t|
     	t.references :task

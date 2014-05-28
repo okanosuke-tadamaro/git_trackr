@@ -10,4 +10,11 @@ class ProjectsController < ApplicationController
 		end
 	end
 
+	def create
+		collaborators = params[:project_collaborators].split(' ')
+		collaborators.each do |user|
+			User.check_and_add_collaborator(user, current_user.github_access_token)
+		end
+	end
+
 end

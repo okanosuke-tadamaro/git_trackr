@@ -1,11 +1,28 @@
 <div id="side-bar">
 	<div class="side-bar-content">
 		<p><%= current_user.username %></p>
+		<a href="#originalblend337" id="trigger-project-input">Poop</a>
 	</div>
 </div>
+
 <div id="content">
 	<div id="projects"></div>
 	<div class="clear"></div>
+</div>
+
+<div id="project-input">
+	<div id="project-input-content">
+		<h3>Add new project</h3>
+		<p>Project Name</p>
+		<p><input type="text" id="project-name"></p>
+		<p>Description</p>
+		<p><input type="text" id="project-description"></p>
+		<p>End Date</p>
+		<p><input type="date" id="project-date"></p>
+		<p>Collaborators</p>
+		<p><input type="text" id="project-collaborators"></p>
+		<p><input type="submit" id="project-input-submit"></p>
+	</div>
 </div>
 
 <!-- BACKBONE TEMPLATES -->
