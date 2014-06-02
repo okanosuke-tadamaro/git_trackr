@@ -83,6 +83,31 @@ body {
 
 #project-input {
 	background-color: #f5f5f5;
-	padding: 30px;
 	border-radius: 5px;
+	width: 300px;
+	.project-input-header {
+		height: 40px;
+		background-color: #48D583;
+		border-radius: 5px 5px 0 0;
+		h3 {
+			text-transform: uppercase;
+			line-height: 20px;
+			padding: 10px 0 0 10px;
+			font-size: 16px;
+			color: white;
+		}
+	}
+	.project-input-content {
+		padding: 10px;
+		input {
+			margin-bottom: 10px;
+			width: 270px;
+		}
+		input[type='submit'] {
+			margin-bottom: 0;
+			border: solid 1px #48D583;
+			background-color: #48D583;
+			color: white;
+		}
+	}
 }

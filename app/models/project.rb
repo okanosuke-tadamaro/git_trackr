@@ -3,8 +3,7 @@ class Project < ActiveRecord::Base
 	has_and_belongs_to_many :users
 	has_many :tasks
 
-	def add_collaborator(user, access_token)
-		client = User.new_github_client(access_token)
+	def add_collaborator(user, client)
 		if User.exists?(username: user)
 			collaborator = User.find_by(username: user)
 			self.users << collaborator
@@ -14,6 +13,14 @@ class Project < ActiveRecord::Base
 			self.users << collaborator
 		end
 		return true
+	end
+
+	def create_repository(client)
+		client.create_repository(self.name)
+	end
+
+	def add_github_collaborator(current_username, user, client)
+		client.add_collaborator("#{current_username}/#{self.name}", user)
 	end
 
 end

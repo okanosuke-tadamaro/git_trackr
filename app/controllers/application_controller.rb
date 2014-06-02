@@ -17,4 +17,8 @@ class ApplicationController < ActionController::Base
   def current_user
     User.find_by(github_access_token: session[:github_access_token]) if signed_in?
   end
+
+  def client
+    User.new_github_client(current_user.github_access_token)
+  end
 end
