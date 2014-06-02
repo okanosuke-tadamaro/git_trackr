@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
     begin
       client.user(user)
     rescue
-    binding.pry
+
+    end
   end
 
 end
