@@ -11,10 +11,19 @@ class ProjectsController < ApplicationController
 	end
 
 	def create
+		project = Project.create(name: params[:project_name], description: params[:project_description], begin_date: Date.today, end_date: params[:project_end_date])
+		
+		#Add Collaborators
 		collaborators = params[:project_collaborators].split(' ')
 		collaborators.each do |user|
-			User.check_and_add_collaborator(user, current_user.github_access_token)
+ 			project.add_collaborator(user, current_user.github_access_token)
 		end
+
+		#Create Repo
+	end
+
+	def check_github_user
+		User.check_collaborator(params[:collaborator], current_user.github_access_token)
 	end
 
 end

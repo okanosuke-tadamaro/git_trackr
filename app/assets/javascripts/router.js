@@ -21,14 +21,7 @@ var AppRouter = Backbone.Router.extend({
 			}.bind(this)
 		});
 
-		$('#project-input').easyModal({
-			top: 100,
-			autoOpen: false,
-			overlayOpacity: 0.3,
-			overlayColor: "#333",
-			overlayClose: false,
-			closeOnEscape: true
-		});
+		$('#project-input').easyModal({ top: 100, autoOpen: false, overlayOpacity: 0.3, overlayColor: "#333", overlayClose: false, closeOnEscape: true });
 		$('#trigger-project-input').click(function() {
 			$('#project-input').trigger('openModal');
 		});

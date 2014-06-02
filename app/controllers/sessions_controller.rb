@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     client = User.new_github_client(github_callback["access_token"]).user
     session[:github_access_token] = github_callback["access_token"]
     unless User.exists?(username: client.login)
-      User.create(username: client.login, github_access_token: github_callback["access_token"])
+      User.create(username: client.login, avatar_url: client.avatar_url ,github_access_token: github_callback["access_token"])
     end
     redirect_to "/##{client.login}"
   end

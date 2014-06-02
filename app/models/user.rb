@@ -15,12 +15,13 @@ class User < ActiveRecord::Base
     return Octokit::Client.new :access_token => access_token
   end
 
-  def self.check_and_add_collaborator(user, access_token)
+  def self.check_collaborator(user, access_token)
     client = User.new_github_client(access_token)
     begin
-      client.user(user)
-    rescue
-
+      collaborator = client.user(user)
+      return "true"
+    rescue Octokit::NotFound
+      return "false"
     end
   end
 
