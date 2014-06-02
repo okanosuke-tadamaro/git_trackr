@@ -3,38 +3,45 @@ var ProjectInputView = Backbone.View.extend({
 	
 	events: {
 		'click #project-input-submit': 'createNewProject',
-		'keypress #project-collaborators': 'checkCollaborator'
+		'keypress #project-collaborators': 'checkCollaborator',
+		'click .delete-button': 'deleteCollaborator'
 	},
 
 	createNewProject: function() {
+		$('#project-input').trigger('closeModal');
 		var projectName = $('#project-name').val();
 		var projectDescription = $('#project-description').val();
 		var projectEndDate = $('#project-date').val();
-		var projectCollaborators = $('#project-collaborators').val();
-		$.ajax({
-			url: '/create_project',
-			dataType: 'json',
-			method: 'post',
-			data: {
-				project_name: projectName,
-				project_description: projectDescription,
-				project_end_date: projectEndDate,
-				project_collaborators: projectCollaborators
-			}
-		});
+		var projectCollaborators = $('.taggable-list').find('span.tagged').text();
+		var newProject = {name: projectName, description: projectDescription, end_date: projectEndDate, collaborators: projectCollaborators};
+		this.collection.create(newProject, {wait: true});
+		// $.ajax({
+		// 	url: '/create_project',
+		// 	dataType: 'json',
+		// 	method: 'post',
+		// 	data: {
+		// 		project_name: projectName,
+		// 		project_description: projectDescription,
+		// 		project_end_date: projectEndDate,
+		// 		project_collaborators: projectCollaborators
+		// 	}
+		// }).done(function() {
+
+		// 	this.collection.fetch();
+		// });
 	},
 
 	checkCollaborator: function(e) {
 		if (e.keyCode === 32) {
-			var collaboratorToCheck = $(this).val().split(' ')[collaboratorToCheck.length];
+			var collaboratorToCheck = $('#project-collaborators').val();
 			$.ajax({
 				url: '/check_collaborator',
 				dataType: 'json',
 				method: 'get',
 				data: { collaborator: collaboratorToCheck }
 			}).done(function(data) {
-				if (data === 'true') {
-					
+				if (data === true) {
+					TaggableList.changeToBlock();
 				}
 			});
 		}

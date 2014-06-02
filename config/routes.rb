@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get   "/signout" => "sessions#destroy"
 
   post "/create_project" => "projects#create"
+  get "/check_collaborator" => "projects#check_github_user"
 
   resources :projects
   resources :tasks

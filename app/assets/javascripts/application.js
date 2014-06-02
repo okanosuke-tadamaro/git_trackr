@@ -16,6 +16,7 @@
 //= require underscore
 //= require backbone
 //= require transit
+//= require taggableList
 //= require jquery.easyModal
 //= require_tree ./models
 //= require_tree ./collections

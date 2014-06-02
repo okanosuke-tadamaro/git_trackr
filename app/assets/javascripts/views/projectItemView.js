@@ -13,6 +13,7 @@ var ProjectItemView = Backbone.View.extend({
 		this.render();
 	},
 	render: function() {
+		console.log(this.model.toJSON());
 		var createViewFromTemplate = this.template(this.model.toJSON());
 		this.$el.html(createViewFromTemplate);
 	}

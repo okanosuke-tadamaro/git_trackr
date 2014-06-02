@@ -6,7 +6,7 @@ var AppRouter = Backbone.Router.extend({
 		console.log('router.js initialized');
 		this.projectCollection = new ProjectCollection();
 		this.projectCollectionView = new ProjectCollectionView({collection: this.projectCollection});
-		this.projectInput = new ProjectInputView();
+		this.projectInput = new ProjectInputView({collection: this.projectCollection});
 	},
 	start: function() {
 		Backbone.history.start();
@@ -15,6 +15,7 @@ var AppRouter = Backbone.Router.extend({
 		console.log('on index route');
 		
 		this.projectCollection.fetch({
+			reset: true,
 			success: function() {
 				console.log('fetched');
 				$('#projects').html(this.projectCollectionView.$el);
