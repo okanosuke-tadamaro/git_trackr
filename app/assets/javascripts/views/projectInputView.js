@@ -15,20 +15,6 @@ var ProjectInputView = Backbone.View.extend({
 		var projectCollaborators = $('.taggable-list').find('span.tagged').text();
 		var newProject = {name: projectName, description: projectDescription, end_date: projectEndDate, collaborators: projectCollaborators};
 		this.collection.create(newProject, {wait: true});
-		// $.ajax({
-		// 	url: '/create_project',
-		// 	dataType: 'json',
-		// 	method: 'post',
-		// 	data: {
-		// 		project_name: projectName,
-		// 		project_description: projectDescription,
-		// 		project_end_date: projectEndDate,
-		// 		project_collaborators: projectCollaborators
-		// 	}
-		// }).done(function() {
-
-		// 	this.collection.fetch();
-		// });
 	},
 
 	checkCollaborator: function(e) {

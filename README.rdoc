@@ -26,3 +26,8 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+RUNNING LIST OF THINGS TO FIX
+
+- Need to add stage and priority to tasks
+- Link projects to github source code

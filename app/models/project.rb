@@ -7,6 +7,7 @@ class Project < ActiveRecord::Base
 		return_data = []
 		current_user.projects.each do |project|
 			return_data << {
+				id: project.id,
 				name: project.name,
 				description: project.description,
 				end_date: project.end_date,

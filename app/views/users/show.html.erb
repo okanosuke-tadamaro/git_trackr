@@ -1,7 +1,7 @@
 <div id="side-bar">
 	<div class="side-bar-content">
 		<p><%= current_user.username %></p>
-		<a href="#originalblend337" id="trigger-project-input">New Project</a>
+		<a href="#<%= current_user.username %>" id="trigger-project-input">New Project</a>
 	</div>
 </div>
 
@@ -37,7 +37,7 @@
 <script type="text/template" id="project-item-template">
 	<div class="project-item-box">
 		<div class="project-box-header">
-			<h3><%%= name %></h3>
+			<h3><a href="/projects/<%%= id %>" class="view"><%%= name %></a></h3>
 			<div class="project-menu"><i class="fa fa-plus"></i></div>
 			<div class="clear"></div>
 		</div>
