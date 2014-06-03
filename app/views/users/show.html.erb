@@ -77,9 +77,6 @@
 				<p>Due Date</p>
 				<p><input type="date" id="due-date"></p>
 				<p>Assignees</p>
-				<ul class="taggable-list">
-					<li class="input-list-item"><input type="text" id="task-collaborators"></li>
-				</ul>
 				<input type="submit" id="task-input-submit">
 			</div>
 		</div>
@@ -101,7 +98,7 @@
 			<ul class="projects-view-collaborators">
 				<%% _.each(collaborators, function(collaborator) { %>
 					<li><img src="<%%= collaborator %>"></li>
-					<%% }); %>
+				<%% }); %>
 			</ul>
 		</div>
 	</div>

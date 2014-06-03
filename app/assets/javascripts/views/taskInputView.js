@@ -7,7 +7,7 @@ var TaskInputView = Backbone.View.extend({
 
 	createNewTask: function() {
 		// $('#task-input').trigger('closeModal');
-		var taskName = $('#project-name').val();
+		var taskName = $('#task-name').val();
 		var taskDueDate = $('#due-date').val();
 		var newTask = {name: taskName, due_date: taskDueDate};
 		this.collection.create(newTask, {wait: true});

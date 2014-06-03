@@ -26,6 +26,7 @@ class ProjectsController < ApplicationController
 		
 		#Add Collaborators
 		collaborators = params[:collaborators].split(' ')
+		binding.pry
 		collaborators.each do |user|
  			project.add_collaborator(user, client)
  			#Add collaborator on GitHub
