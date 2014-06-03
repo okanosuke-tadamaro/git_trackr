@@ -28,7 +28,23 @@ body {
 	background-color: #59D98E;
 	color: white;
 	.side-bar-content {
+		text-align: center;
 		margin: 40px 15px 40px 15px;
+		#user-avatar {
+			width: 100px;
+			border-radius: 50%;
+		}
+		#trigger-project-input {
+			height: 30px;
+			line-height: 30px;
+			margin-top: 10px;
+			border-radius: 3px;
+			cursor: pointer;
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+		#trigger-project-input:hover {
+			background-color: rgba(0, 0, 0, 0.2);	
+		}
 	}
 }
 
@@ -64,7 +80,7 @@ body {
 							line-height: 20px;
 							padding: 10px 0 0 10px;
 							font-size: 16px;
-							color: white;
+							a { color: white; text-decoration: none; }
 						}
 						.project-menu {
 							float: right;
@@ -89,8 +105,8 @@ body {
 				}
 				.project-item-box:hover {
 					transition: all .2s;
-					transform:rotate(3deg);
-					-webkit-transform:rotate(3deg);
+					transform:rotate(1deg);
+					-webkit-transform:rotate(1deg);
 				}
 			}
 		}

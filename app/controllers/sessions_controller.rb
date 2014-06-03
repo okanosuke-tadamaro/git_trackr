@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     unless User.exists?(username: client.login)
       User.create(username: client.login, avatar_url: client.avatar_url ,github_access_token: github_callback["access_token"])
     end
-    redirect_to "/##{client.login}"
+    redirect_to root_path
   end
 
   def destroy

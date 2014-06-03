@@ -1,6 +1,7 @@
 var AppRouter = Backbone.Router.extend({
 	routes: {
-		'': 'index'
+		'': 'index',
+		':project_name': 'show'
 	},
 
 	initialize: function() {
@@ -42,5 +43,9 @@ var AppRouter = Backbone.Router.extend({
 			$('#todo').append(form);
 			$(this).fadeOut('fast');
 		});
+	},
+
+	show: function() {
+		console.log('on show route');
 	}
 });

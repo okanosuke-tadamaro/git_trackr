@@ -13,8 +13,12 @@ var ProjectInputView = Backbone.View.extend({
 		var projectDescription = $('#project-description').val();
 		var projectEndDate = $('#project-date').val();
 		var projectCollaborators = $('.taggable-list').find('span.tagged').text();
-		var newProject = {name: projectName, description: projectDescription, end_date: projectEndDate, collaborators: projectCollaborators};
-		this.collection.create(newProject, {wait: true});
+		var collaboratorAvatars = [$('#user-avatar').attr('src')];
+		for(var i = 0; i < $('.tagged-list-item').length; i++) {
+			collaboratorAvatars.push($('.tagged-list-item').eq(i).data('avatar_url'));
+		}
+		var newProject = {name: projectName, description: projectDescription, end_date: projectEndDate, collaborators: collaboratorAvatars, collaborator_names: projectCollaborators };
+		this.collection.create(newProject);
 	},
 
 	checkCollaborator: function(e) {
@@ -26,8 +30,9 @@ var ProjectInputView = Backbone.View.extend({
 				method: 'get',
 				data: { collaborator: collaboratorToCheck }
 			}).done(function(data) {
-				if (data === true) {
+				if (data[0] === true) {
 					TaggableList.changeToBlock();
+					$('.tagged-list-item').eq($('.tagged-list-item').length - 1).data('avatar_url', data[1]);
 				}
 			});
 		}
