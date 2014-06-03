@@ -10,7 +10,10 @@ var AppRouter = Backbone.Router.extend({
 		this.projectCollection = new ProjectCollection();
 		this.projectCollectionView = new ProjectCollectionView({collection: this.projectCollection});
 		this.projectInput = new ProjectInputView({collection: this.projectCollection});
-		},
+		this.taskCollection = new TaskCollection();
+		this.taskCollectionView = new TaskCollectionView({collection: this.taskCollection});
+		this.taskInput = new TaskInputView({collection: this.taskCollection});
+	},
 
 	start: function() {
 		Backbone.history.start();
@@ -34,12 +37,9 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	show: function() {
-    	console.log('on show route');
-    	this.taskCollection = new TaskCollection();
-		this.taskCollectionView = new TaskCollectionView({collection: this.taskCollection});
-		this.taskInput = new TaskInputView({collection: this.taskCollection});
-	
-    	this.taskCollection.fetch({
+		console.log('on show route');
+
+		this.taskCollection.fetch({
 			reset: true,
 			success: function() {
 				console.log('tasks fetched');
@@ -47,9 +47,12 @@ var AppRouter = Backbone.Router.extend({
 			}.bind(this)
 		});
 
+		var poop = $('#reveal-task-form');
+		console.log(poop);
+
     	// $(".gridster ul").gridster({
 	    //     widget_margins: [10, 10],
 	    //     widget_base_dimensions: [140, 140]
    		//  });
-	}
+}
 });

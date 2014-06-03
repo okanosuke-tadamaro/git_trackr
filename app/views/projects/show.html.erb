@@ -2,24 +2,47 @@
 	<div class="side-bar-content">
 		<p><%= @project.name %></p>
 		<% @collaborators.each do |user| %>
-			<img src="<%= user.avatar_url %>"></a>
+		<img src="<%= user.avatar_url %>"></a>
 		<% end %>
 	</div>
 </div>
 
 <div id="content">
 	<div id="tasks">
-		<div class="sticky-box" id="todo"> To Do
-			<p id="reveal-task-form">Add User Story</p>
+		<div class="task-column" id="todo">
+			<div class="column-header">
+				<h3>To Do</h3>
+			</div>
+			<div class="column-body">
+				<p id="reveal-task-form">Add User Story</p>
+			</div>
 		</div>
-		<div class="sticky-box" id="doing"> Doing </div>
-		<div class="sticky-box" id="done"> Done </div>
-		<div class="sticky-box" id="icebox"> Icebox </div>
+		<div class="task-column" id="doing">
+			<div class="column-header">
+				<h3>Doing</h3>
+			</div>
+			<div class="column-body">
+			</div>
+		</div>
+		<div class="task-column" id="done">
+			<div class="column-header">
+				<h3>Done</h3>
+			</div>
+			<div class="column-body">
+			</div>
+		</div>
+		<div class="task-column" id="icebox">
+			<div class="column-header">
+				<h3>Ice Box</h3>
+			</div>
+			<div class="column-body">
+			</div>
+		</div>
 	</div>
-		<div class="clear"></div>
+	<div class="clear"></div>
 </div>
 
-<!-- <div id="task-input">
+<div id="task-input">
 	<div id="task-input-inner">
 		<div class="task-input-header">
 			<h3>Add new user story</h3>
@@ -38,7 +61,7 @@
 			</div>
 		</div>
 	</div>
-</div> -->
+</div>
 
 <!-- <div class="gridster">
     <ul>
@@ -59,25 +82,25 @@
         <li data-row="1" data-col="6" data-sizex="1" data-sizey="1">TEST</li>
         <li data-row="2" data-col="6" data-sizex="1" data-sizey="2">TEST</li>
     </ul>
-</div> -->
+  </div> -->
 
-<!-- BACKBONE TEMPLATES -->
-<script type="text/template" id="task-item-template">
-	<div class="task-item-box">
-		<div class="task-box-header">
-			<h3><a href="/projects/<%%= id %>"><%%= name %></a></h3>
-			<div class="task-menu"><i class="fa fa-plus"></i></div>
-			<div class="clear"></div>
-		</div>
-		<div class="task-box-content">
-			<p><%%= status %></p>
-		</div>
-		<div class="task-box-footer">
-			<ul class="tasks-view-assignees">
-			<%% _.each(assignees, function(assignee) { %>
-				<li><img src="<%%= assignee %>"></li>
-			<%% }); %>
-			</ul>
-		</div>
-	</div>
-</script>
+  <!-- BACKBONE TEMPLATES -->
+  <script type="text/template" id="task-item-template">
+  	<div class="task-item-box">
+  		<div class="task-box-header">
+  			<h3><a href="/projects/<%%= id %>"><%%= name %></a></h3>
+  			<div class="task-menu"><i class="fa fa-plus"></i></div>
+  			<div class="clear"></div>
+  		</div>
+  		<div class="task-box-content">
+  			<p><%%= status %></p>
+  		</div>
+  		<div class="task-box-footer">
+  			<ul class="tasks-view-assignees">
+  				<%% _.each(assignees, function(assignee) { %>
+  					<li><img src="<%%= assignee %>"></li>
+  					<%% }); %>
+  			</ul>
+  		</div>
+  	</div>
+  </script>
