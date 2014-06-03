@@ -36,17 +36,18 @@ ActiveRecord::Schema.define(version: 20140528045059) do
   end
 
   create_table "tasks", force: true do |t|
-    t.string   "name"
+    t.string   "branch_name"
+    t.string   "user_story"
     t.date     "due_date"
     t.integer  "status"
+    t.integer  "priority"
+    t.string   "stage"
     t.integer  "project_id"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id", using: :btree
-  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
   create_table "tasks_users", id: false, force: true do |t|
     t.integer "task_id", null: false

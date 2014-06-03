@@ -1,8 +1,6 @@
 var AppRouter = Backbone.Router.extend({
 	routes: {
-		':user': 'index',
-		'projects/:id': 'show'
-
+		'': 'index'
 	},
 
 	initialize: function() {
@@ -30,29 +28,19 @@ var AppRouter = Backbone.Router.extend({
 			}.bind(this)
 		});
 
+		//SETUP EASYMODAL
 		$('#project-input').easyModal({ top: 100, autoOpen: false, overlayOpacity: 0.3, overlayColor: "#333", overlayClose: false, closeOnEscape: true });
+
+		//CLICK EVENT TO TRIGGER MODAL
 		$('#trigger-project-input').click(function() {
 			$('#project-input').trigger('openModal');
 		});
-	},
 
-	show: function() {
-		console.log('on show route');
-
-		this.taskCollection.fetch({
-			reset: true,
-			success: function() {
-				console.log('tasks fetched');
-				$('#tasks').html(this.taskCollectionView.$el);
-			}.bind(this)
+		//CLICK EVENT TO REVEAL USER STORY FORM
+		$('#reveal-task-form').click(function() {
+			var form = $('#task-input');
+			$('#todo').append(form);
+			$(this).fadeOut('fast');
 		});
-
-		var poop = $('#reveal-task-form');
-		console.log(poop);
-
-    	// $(".gridster ul").gridster({
-	    //     widget_margins: [10, 10],
-	    //     widget_base_dimensions: [140, 140]
-   		//  });
-}
+	}
 });

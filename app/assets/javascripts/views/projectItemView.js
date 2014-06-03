@@ -3,7 +3,7 @@ var ProjectItemView = Backbone.View.extend({
 	tagName: 'li',
 	className: 'project-item',
 	events: {
-		
+		'click #show-project': 'showProject'		
 	},
 	initialize: function() {
 		console.log('projectItemView is initialized');
@@ -16,6 +16,10 @@ var ProjectItemView = Backbone.View.extend({
 		console.log(this.model.toJSON());
 		var createViewFromTemplate = this.template(this.model.toJSON());
 		this.$el.html(createViewFromTemplate);
+	},
+	showProject: function() {
+		$('#projects').fadeOut('fast');
+		$('#tasks').fadeIn('fast');
 	}
 
 });
