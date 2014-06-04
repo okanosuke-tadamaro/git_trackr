@@ -1,6 +1,6 @@
 <div id="side-bar">
 	<div class="side-bar-content">
-		<p><%= @project.name %></p>
+		<p class="project-info" id="<%= @project.id %>"><%= @project.name %></p>
 		<div class="user-list">
 			<% @collaborators.each do |user| %>
 			<img src="<%= user.avatar_url %>"></a>

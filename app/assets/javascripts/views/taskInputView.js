@@ -5,12 +5,13 @@ var TaskInputView = Backbone.View.extend({
 		'click #task-input-submit': 'createNewTask'
 	},
 	createNewTask: function() {
-		var path = window.location.pathname.split('/');
-		var projectId = path[path.length - 1];
+		// var path = window.location.pathname.split('/');
+		// var projectId = path[path.length - 1];
+		var projectId = $('.project-info').attr('id');
 		var branchName = $('#branch-name').val();
 		var userStory = $('#user-story').val();
 		var dueDate = $('#due-date').val();
-		var newTask = {branch_name: branchName, user_story: userStory, due_date: dueDate, project_id: projectId};
+		var newTask = { branch_name: branchName, user_story: userStory, due_date: dueDate, project_id: projectId };
 		this.collection.create(newTask, {wait: true});
 	}
 });

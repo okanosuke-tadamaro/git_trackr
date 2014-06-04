@@ -5,7 +5,7 @@ class Task < ActiveRecord::Base
   has_many :nested_tasks
   has_many :subtasks, :through => :nested_tasks
 
-  def get_tasks(project)
+  def self.get_tasks(project)
   	tasks = project.tasks
   	return_data = []
   	tasks.each do |task|

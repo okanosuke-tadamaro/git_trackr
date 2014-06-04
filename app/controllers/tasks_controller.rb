@@ -3,10 +3,8 @@ class TasksController < ApplicationController
 	before_action :signed_in?
 
 	def index
-		binding.pry
-		project = Project.find(params[:id])
+		project = Project.find(params[:project].to_i)
 		tasks = Task.get_tasks(project)
-
 		respond_to do |format|
 			format.html
 			format.json { render json: tasks.to_json }

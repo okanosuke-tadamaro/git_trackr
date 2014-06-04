@@ -1,5 +1,4 @@
 var TaskItemView = Backbone.View.extend({
-
 	tagName: 'li',
 	className: 'task-item',
 	events: {

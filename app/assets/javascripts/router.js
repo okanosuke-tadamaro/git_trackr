@@ -12,8 +12,6 @@ var AppRouter = Backbone.Router.extend({
 		this.taskCollection = new TaskCollection();
 		this.taskCollectionView = new TaskCollectionView({collection: this.taskCollection});
 		this.taskInput = new TaskInputView({collection: this.taskCollection});
-
-		this.route('projects/:id', 'show');
 	},
 
 	start: function() {
@@ -43,11 +41,13 @@ var AppRouter = Backbone.Router.extend({
 	show: function() {
 		console.log('on show route');
 
+		this.projectId = $('.project-info').attr('id');
 		this.taskCollection.fetch({
+			data: {project: this.projectId},
 			success: function() {
 				console.log('tasks fetched');
-				$('#tasks').html(this.taskCollectionView);
-			}
+				$('#todo .column-body').prepend(this.taskCollectionView.$el);
+			}.bind(this)
 		});
 
 		//CLICK EVENT TO REVEAL USER STORY FORM
