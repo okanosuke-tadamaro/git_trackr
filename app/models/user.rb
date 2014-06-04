@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   def self.check_collaborator(user, client)
     begin
       collaborator = client.user(user)
-      return true
+      return [true, collaborator.avatar_url]
     rescue Octokit::NotFound
       return false
     end

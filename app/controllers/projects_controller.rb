@@ -20,8 +20,9 @@ class ProjectsController < ApplicationController
 		project.create_repository(client)
 		
 		#Add Collaborators
-		collaborators = params[:collaborators].split(' ')
-		
+
+		collaborators = params[:collaborator_names].split(' ')
+
 		collaborators.each do |user|
  			project.add_collaborator(user, client)
  			#Add collaborator on GitHub
