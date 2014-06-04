@@ -1,7 +1,7 @@
 var AppRouter = Backbone.Router.extend({
 	routes: {
 		'': 'index',
-		':project_name': 'show'
+		'projects/:id': 'show'
 	},
 
 	initialize: function() {
@@ -12,10 +12,12 @@ var AppRouter = Backbone.Router.extend({
 		this.taskCollection = new TaskCollection();
 		this.taskCollectionView = new TaskCollectionView({collection: this.taskCollection});
 		this.taskInput = new TaskInputView({collection: this.taskCollection});
+
+		this.route('projects/:id', 'show');
 	},
 
 	start: function() {
-		Backbone.history.start();
+		Backbone.history.start({pushState: true});
 	},
 
 	index: function() {
@@ -36,16 +38,24 @@ var AppRouter = Backbone.Router.extend({
 		$('#trigger-project-input').click(function() {
 			$('#project-input').trigger('openModal');
 		});
-
-		//CLICK EVENT TO REVEAL USER STORY FORM
-		$('#reveal-task-form').click(function() {
-			var form = $('#task-input');
-			$('#todo').append(form);
-			$(this).fadeOut('fast');
-		});
 	},
 
 	show: function() {
 		console.log('on show route');
+
+		this.taskCollection.fetch({
+			success: function() {
+				console.log('tasks fetched');
+				$('#tasks').html(this.taskCollectionView);
+			}
+		});
+
+		//CLICK EVENT TO REVEAL USER STORY FORM
+		$('#reveal-task-form').click(function() {
+			var form = $('#task-input');
+			form.appendTo($('#todo .column-body')).fadeIn('fast');
+			// $('#todo .column-body').append(form);
+			$(this).fadeOut('fast');
+		});
 	}
 });

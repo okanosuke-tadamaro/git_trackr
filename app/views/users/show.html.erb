@@ -9,37 +9,6 @@
 <!-- CONTENTS -->
 <div id="content">
 	<div id="projects"></div>
-	<div id="tasks">
-		<div class="task-column" id="todo">
-			<div class="column-header">
-				<h3>To Do</h3>
-			</div>
-			<div class="column-body">
-				<p id="reveal-task-form">Add User Story</p>
-			</div>
-		</div>
-		<div class="task-column" id="doing">
-			<div class="column-header">
-				<h3>Doing</h3>
-			</div>
-			<div class="column-body">
-			</div>
-		</div>
-		<div class="task-column" id="done">
-			<div class="column-header">
-				<h3>Done</h3>
-			</div>
-			<div class="column-body">
-			</div>
-		</div>
-		<div class="task-column" id="icebox">
-			<div class="column-header">
-				<h3>Ice Box</h3>
-			</div>
-			<div class="column-body">
-			</div>
-		</div>
-	</div>
 	<div class="clear"></div>
 </div>
 
@@ -66,29 +35,11 @@
 	</div>
 </div>
 
-<div id="task-input">
-	<div id="task-input-inner">
-		<div class="task-input-header">
-			<h3>Add new user story</h3>
-		</div>
-		<div class="task-input-content">
-			<div class="task-form">
-				<p>Task Name</p>
-				<p><input type="text" id="task-name"></p>
-				<p>Due Date</p>
-				<p><input type="date" id="due-date"></p>
-				<p>Assignees</p>
-				<input type="submit" id="task-input-submit">
-			</div>
-		</div>
-	</div>
-</div>
-
 <!-- BACKBONE TEMPLATES -->
 <script type="text/template" id="project-item-template">
 	<div class="project-item-box">
 		<div class="project-box-header">
-			<h3><a href="#<%%= name %>" id="show-project"><%%= name %></a></h3>
+			<h3><a href="/projects/<%%= id %>" id="show-project"><%%= name %></a></h3>
 			<div class="project-menu"><i class="fa fa-plus"></i></div>
 			<div class="clear"></div>
 		</div>

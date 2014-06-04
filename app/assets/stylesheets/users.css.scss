@@ -45,6 +45,14 @@ body {
 		#trigger-project-input:hover {
 			background-color: rgba(0, 0, 0, 0.2);	
 		}
+		.user-list {
+			margin-top: 10px;
+			img {
+				width: 100px;
+				border-radius: 50%;
+				margin-bottom: 10px;
+			}
+		}
 	}
 }
 
@@ -112,7 +120,6 @@ body {
 		}
 	}
 	#tasks {
-		display: none;
 		.task-column {
 			width: 320px;
 			float: left;
