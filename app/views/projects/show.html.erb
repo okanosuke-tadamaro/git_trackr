@@ -11,7 +11,6 @@
 
 <!-- CONTENTS -->
 <div id="content">
-	<div id="projects"></div>
 	<div id="tasks">
 		<div class="task-column" id="todo">
 			<div class="column-header">
@@ -69,12 +68,11 @@
 <script type="text/template" id="task-item-template">
 	<div class="task-item-box">
 		<div class="task-box-header">
-			<h3><%%= branch_name %></h3>
-			<p><%%= user_story %></p>
-			<div class="task-menu"><i class="fa fa-plus"></i></div>
+			<h3>Branch: <%%= branch_name %></h3>
 			<div class="clear"></div>
 		</div>
 		<div class="task-box-content">
+			<p>User Story: <%%= user_story %></p>
 			<p><%%= due_date %></p>
 			<p><%%= status %></p>
 		</div>

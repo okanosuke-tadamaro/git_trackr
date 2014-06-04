@@ -1,9 +1,9 @@
-var TaskCollectionView = Backbone.View.extend({
+var TaskDoneCollectionView = Backbone.View.extend({
 
 	tagName: 'ul',
-	className: 'task-list',
+	className: 'task-done-list',
 	initialize: function() {
-		console.log('taskcollectionview is initialized');
+		console.log('task-done-collection-view is initialized');
 		this.listenTo(this.collection, 'add', this.addOne);
 		this.listenTo(this.collection, 'reset', this.addAll);
 	},
@@ -14,7 +14,7 @@ var TaskCollectionView = Backbone.View.extend({
 	},
 	addOne: function(taskModel) {
 		console.log('addOne is hit');
-		if (taskModel.toJSON().stage === 'todo') {
+		if (taskModel.toJSON().stage === 'done') {
 			var taskItemView = new TaskItemView({model: taskModel});
 			this.$el.append(taskItemView.$el);
 		}

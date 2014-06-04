@@ -11,6 +11,8 @@ var AppRouter = Backbone.Router.extend({
 		this.projectInput = new ProjectInputView({collection: this.projectCollection});
 		this.taskCollection = new TaskCollection();
 		this.taskCollectionView = new TaskCollectionView({collection: this.taskCollection});
+		this.taskDoingCollectionView = new TaskDoingCollectionView({collection: this.taskCollection});
+		this.taskDoneCollectionView = new TaskDoneCollectionView({collection: this.taskCollection});
 		this.taskInput = new TaskInputView({collection: this.taskCollection});
 	},
 
@@ -47,6 +49,8 @@ var AppRouter = Backbone.Router.extend({
 			success: function() {
 				console.log('tasks fetched');
 				$('#todo .column-body').prepend(this.taskCollectionView.$el);
+				$('#doing .column-body').append(this.taskDoingCollectionView.$el);
+				$('#done .column-body').append(this.taskDoneCollectionView.$el);
 			}.bind(this)
 		});
 
