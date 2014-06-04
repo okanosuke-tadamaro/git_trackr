@@ -10,11 +10,6 @@ class ProjectsController < ApplicationController
 		end
 	end
 
-	def show
-		@project = Project.find(params[:id])
-		@collaborators = @project.users
-	end
-
 	def create
 		# project = Project.create(name: params[:project_name], description: params[:project_description], begin_date: Date.today, end_date: params[:project_end_date])
 		project = Project.create(project_params)
@@ -26,7 +21,7 @@ class ProjectsController < ApplicationController
 		
 		#Add Collaborators
 		collaborators = params[:collaborators].split(' ')
-		binding.pry
+		
 		collaborators.each do |user|
  			project.add_collaborator(user, client)
  			#Add collaborator on GitHub
