@@ -8,7 +8,7 @@ var AppRouter = Backbone.Router.extend({
 		console.log('router.js initialized');
 		this.projectCollection = new ProjectCollection();
 		this.projectCollectionView = new ProjectCollectionView({collection: this.projectCollection});
-		this.projectInput = new ProjectInputView({collection: this.projectCollection});
+		this.projectInput = new ProjectInputView({model: new ProjectModel(), collection: this.projectCollection});
 		this.taskCollection = new TaskCollection();
 		this.taskCollectionView = new TaskCollectionView({collection: this.taskCollection});
 		this.taskDoingCollectionView = new TaskDoingCollectionView({collection: this.taskCollection});
@@ -36,6 +36,15 @@ var AppRouter = Backbone.Router.extend({
 
 		//CLICK EVENT TO TRIGGER MODAL
 		$('#trigger-project-input').click(function() {
+			//RESET FORM
+			$('.project-input-header h3').text('Create New Project');
+			$('#project-input-submit').toggle();
+			$('#project-edit-submit').toggle();
+			$('#project-name').val('');
+			$('#project-description').val('');
+			$('#project-date').val('');
+			$('.taggable-list .tagged-list-item').remove();
+			//OPEN MODAL
 			$('#project-input').trigger('openModal');
 		});
 	},

@@ -29,7 +29,8 @@
 				<ul class="taggable-list">
 					<li class="input-list-item"><input type="text" id="project-collaborators"></li>
 				</ul>
-				<input type="submit" id="project-input-submit">
+				<input type="submit" id="project-input-submit" value="Create">
+				<input type="submit" id="project-edit-submit" value="Save">
 			</div>
 		</div>
 	</div>
@@ -37,10 +38,14 @@
 
 <!-- BACKBONE TEMPLATES -->
 <script type="text/template" id="project-item-template">
-	<div class="project-item-box">
+	<div class="project-item-box" id="<%%= id %>">
 		<div class="project-box-header">
 			<h3><a href="/projects/<%%= id %>" id="show-project"><%%= name %></a></h3>
-			<div class="project-menu"><i class="fa fa-plus"></i></div>
+			<ul id="menu-items">
+				<li class="edit-project">Edit</li>
+				<li class="destroy-project">Delete</li>
+			</ul>
+			<div class="project-menu"><i id="project-menu" class="fa fa-angle-down"></i></div>
 			<div class="clear"></div>
 		</div>
 		<div class="project-box-content">
@@ -49,7 +54,7 @@
 		<div class="project-box-footer">
 			<ul class="projects-view-collaborators">
 				<%% _.each(collaborators, function(collaborator) { %>
-					<li><img src="<%%= collaborator %>"></li>
+					<li><img src="<%%= collaborator[0] %>" id="<%%= collaborator[1] %>"></li>
 				<%% }); %>
 			</ul>
 		</div>

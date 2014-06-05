@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
 		project = Project.create(project_params)
 		project.update(begin_date: Date.today)
 		current_user.projects << project
-
+	
 		#Create Repo on GitHub
 		project.create_repository(client)
 		
@@ -32,6 +32,21 @@ class ProjectsController < ApplicationController
  			project.add_github_collaborator(current_user.username, user, client)
 		end
 
+		respond_to do |format|
+			format.html
+			format.json { render json: true.to_json }
+		end
+	end
+
+	def update
+		project = Project.find(params[:id])
+		project.update(project_params)
+		project.update_collaborators(params[:project][:collaborator_names])
+	end
+
+	def destroy
+		project = Project.find(params[:id])
+		project.destroy
 		respond_to do |format|
 			format.html
 			format.json { render json: true.to_json }

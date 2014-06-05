@@ -85,9 +85,22 @@ body {
 							font-size: 16px;
 							a { color: white; text-decoration: none; }
 						}
+						#menu-items {
+							display: none;
+							float: left;
+							li {
+								display: inline-block;
+								line-height: 20px;
+								padding: 10px 0 0 10px;
+								font-size: 14px;
+								font-family: 'Roboto Condensed';
+								color: white;
+								cursor: pointer;
+							}
+						}
 						.project-menu {
 							float: right;
-							i { color: white; font-size: 16px; line-height: 20px; margin: 12px 10px 0 0; }
+							i { color: white; font-size: 16px; line-height: 20px; margin: 12px 10px 0 0; cursor: pointer; }
 						}
 					}
 					.project-box-content {
@@ -164,8 +177,7 @@ body {
 				border-radius: 3px;
 				cursor: pointer;
 			}
+			#project-edit-submit { display: none; }
 		}
 	}
 }
-
-#task-input {  }

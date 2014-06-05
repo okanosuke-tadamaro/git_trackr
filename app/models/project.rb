@@ -11,13 +11,14 @@ class Project < ActiveRecord::Base
 				name: project.name,
 				description: project.description,
 				end_date: project.end_date,
-				collaborators: project.users.map { |user| user.avatar_url }
+				collaborators: project.users.map { |user| [user.avatar_url, user.username] }
 			}
 		end
 		return return_data
 	end
 
 	def add_collaborator(user, client)
+		binding.pry
 		if User.exists?(username: user)
 			collaborator = User.find_by(username: user)
 			self.users << collaborator
@@ -35,6 +36,11 @@ class Project < ActiveRecord::Base
 
 	def add_github_collaborator(current_username, user, client)
 		client.add_collaborator("#{current_username}/#{self.name}", user)
+	end
+
+	def update_collaborators(collab_string)
+		collaborators = collab_string.split(' ')
+		binding.pry
 	end
 
 end
