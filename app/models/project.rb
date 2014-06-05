@@ -6,19 +6,12 @@ class Project < ActiveRecord::Base
 	def self.get_projects(current_user)
 		return_data = []
 		current_user.projects.each do |project|
-			return_data << {
-				id: project.id,
-				name: project.name,
-				description: project.description,
-				end_date: project.end_date,
-				collaborators: project.users.map { |user| [user.avatar_url, user.username] }
-			}
+			return_data << project.construct_return_data(current_user)
 		end
 		return return_data
 	end
 
 	def add_collaborator(user, client)
-		binding.pry
 		if User.exists?(username: user)
 			collaborator = User.find_by(username: user)
 			self.users << collaborator
@@ -28,6 +21,16 @@ class Project < ActiveRecord::Base
 			self.users << collaborator
 		end
 		return true
+	end
+
+	def construct_return_data(current_user)
+		return {
+			id: self.id,
+			name: self.name,
+			description: self.description,
+			end_date: self.end_date,
+			collaborators: self.users.map { |user| [user.avatar_url, user.username] }
+		}
 	end
 
 	def check_master(client, author, repo_name)

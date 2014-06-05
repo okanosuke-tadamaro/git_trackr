@@ -1,7 +1,6 @@
 var TaggableList = {
 	
-	changeToBlock: function() {
-		
+	changeToBlock: function() {	
 		// select the li containing the input tag (going to add each of the span tags before this)
 		var inputListItem = $('.input-list-item');
 
@@ -15,6 +14,9 @@ var TaggableList = {
 		newSpan.addClass('tagged').text(content.val());
 		newSpan.appendTo(newListItem);
 		deleteButton.appendTo(newListItem);
+		deleteButton.click(function() {
+			this.parentNode.remove();
+		});
 		// var listItem = $("li").add( "span" ).addClass('tagged').val(content.val());
 
 		// insert the new list item before the text input li tag

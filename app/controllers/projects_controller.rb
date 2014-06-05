@@ -34,18 +34,18 @@ class ProjectsController < ApplicationController
 		project.create_repository(client)
 		
 		#Add Collaborators
-
 		collaborators = params[:collaborator_names].split(' ')
-
 		collaborators.each do |user|
  			project.add_collaborator(user, client)
  			#Add collaborator on GitHub
  			project.add_github_collaborator(current_user.username, user, client)
 		end
 
+		return_data = project.construct_return_data(current_user)
+
 		respond_to do |format|
 			format.html
-			format.json { render json: true.to_json }
+			format.json { render json: return_data.to_json }
 		end
 	end
 
