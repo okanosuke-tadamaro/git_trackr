@@ -1,6 +1,6 @@
 var ProjectInputView = Backbone.View.extend({
 	el: '#project-input',
-	
+
 	events: {
 		'click #project-input-submit': 'createNewProject',
 		'click #project-edit-submit': 'editProject',
@@ -18,6 +18,7 @@ var ProjectInputView = Backbone.View.extend({
 		for(var i = 0; i < $('.tagged-list-item').length; i++) {
 			collaboratorAvatars.push($('.tagged-list-item').eq(i).data('avatar_url'));
 		}
+
 		var newProject = { name: projectName, description: projectDescription, end_date: projectEndDate, collaborators: collaboratorAvatars, collaborator_names: projectCollaborators };
 		// this.collection.create(newProject, {wait: true, reset: true});
 		this.model.save(newProject, {wait: true});
@@ -49,20 +50,20 @@ var ProjectInputView = Backbone.View.extend({
 		});
 	},
 
-	checkCollaborator: function(e) {
-		if (e.keyCode === 32) {
-			var collaboratorToCheck = $('#project-collaborators').val();
-			$.ajax({
-				url: '/check_collaborator',
-				dataType: 'json',
-				method: 'get',
-				data: { collaborator: collaboratorToCheck }
-			}).done(function(data) {
-				if (data[0] === true) {
-					TaggableList.changeToBlock();
-					$('.tagged-list-item').eq($('.tagged-list-item').length - 1).data('avatar_url', data[1]);
-				}
-			});
-		}
+checkCollaborator: function(e) {
+	if (e.keyCode === 32) {
+		var collaboratorToCheck = $('#project-collaborators').val();
+		$.ajax({
+			url: '/check_collaborator',
+			dataType: 'json',
+			method: 'get',
+			data: { collaborator: collaboratorToCheck }
+		}).done(function(data) {
+			if (data[0] === true) {
+				TaggableList.changeToBlock();
+				$('.tagged-list-item').eq($('.tagged-list-item').length - 1).data('avatar_url', data[1]);
+			}
+		});
 	}
+}
 });

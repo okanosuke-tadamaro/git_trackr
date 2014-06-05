@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 20140528045059) do
     t.string   "description"
     t.date     "begin_date"
     t.date     "end_date"
+    t.boolean  "master_status"
+    t.boolean  "dev_status"
+    t.string   "author"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

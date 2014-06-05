@@ -12,20 +12,31 @@ class ProjectsController < ApplicationController
 
 	def show
 		@project = Project.find(params[:id])
+		if @project.master_status == false && @project.check_master(client, @project.author, @project.name) == true 
+			@project.update(master_status: true)
+		end
+
 		@collaborators = @project.users
+		tasks = Task.get_tasks(@project)
+
+		respond_to do |format|
+			format.html
+			format.json { render json: tasks.to_json }
+		end
 	end
 
 	def create
-		# project = Project.create(name: params[:project_name], description: params[:project_description], begin_date: Date.today, end_date: params[:project_end_date])
 		project = Project.create(project_params)
-		project.update(begin_date: Date.today)
+		project.update(begin_date: Date.today, master_status: false, dev_status: false, author: current_user.username)
 		current_user.projects << project
 	
 		#Create Repo on GitHub
 		project.create_repository(client)
 		
 		#Add Collaborators
+
 		collaborators = params[:collaborator_names].split(' ')
+
 		collaborators.each do |user|
  			project.add_collaborator(user, client)
  			#Add collaborator on GitHub
