@@ -10,8 +10,17 @@ class ProjectsController < ApplicationController
 		end
 	end
 
+	def show
+		@project = Project.find(params[:id])
+		@collaborators = @project.users
+		tasks = Task.get_tasks(@project)
+		respond_to do |format|
+			format.html
+			format.json { render json: tasks.to_json }
+		end
+	end
+
 	def create
-		# project = Project.create(name: params[:project_name], description: params[:project_description], begin_date: Date.today, end_date: params[:project_end_date])
 		project = Project.create(project_params)
 		project.update(begin_date: Date.today)
 		current_user.projects << project

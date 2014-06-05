@@ -19,6 +19,12 @@ class TasksController < ApplicationController
 		task.priority = 0
 		task.save
 
+		#Create new branch on github
+		repository_name = project.name
+		octokit_branch_name = task.branch_name
+		repo_creator = project.repo_creator
+		Task.create_task_branch("#{repo_creator}/#{repository_name}", "master/development/#{octokit_branch_name}", sha)
+
 		respond_to do |format|
 			format.html
 			format.json { render json: task.to_json }

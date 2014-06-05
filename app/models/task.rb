@@ -22,4 +22,11 @@ class Task < ActiveRecord::Base
   	return return_data
   end
 
+  def self.create_task_branch(repo, branch_name, sha)
+    Octokit.create_ref(repo, branch_name, sha)
+    # Octokit.create_ref("octocat/Hello-World","heads/master", "827efc6d56897b048c772eb4087f854f46256132")
+    # The name of the fully qualified reference (ie: refs/heads/master). If it doesn’t start with ‘refs’ and have at least two slashes, it will be rejected.
+    # create_ref(repo, ref, sha, options = {})
+  end
+
 end
