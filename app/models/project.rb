@@ -29,6 +29,15 @@ class Project < ActiveRecord::Base
 		return true
 	end
 
+	def check_master(client, author, repo_name)
+		begin
+		 	client.branch("#{author}/#{repo_name}", "master")
+		 	return true
+		rescue
+		 	return false
+		end
+	end
+	
 	def create_repository(client)
 		client.create_repository(self.name, options = {:description => self.description})
 	end

@@ -8,6 +8,7 @@ class Task < ActiveRecord::Base
   def self.get_tasks(project)
   	tasks = project.tasks
   	return_data = []
+    return_data << {master_status: project.master_status}
   	tasks.each do |task|
   		return_data << {
   			branch_name: task.branch_name,

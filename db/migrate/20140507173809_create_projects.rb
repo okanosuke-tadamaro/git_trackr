@@ -7,6 +7,7 @@ class CreateProjects < ActiveRecord::Migration
       t.date :end_date
       t.boolean :master_status
       t.boolean :dev_status
+      t.string :author
 
       t.timestamps
     end

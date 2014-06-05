@@ -12,8 +12,13 @@ class ProjectsController < ApplicationController
 
 	def show
 		@project = Project.find(params[:id])
+		if @project.master_status == false && @project.check_master(client, @project.author, @project.name) == true 
+			@project.update(master_status: true)
+		end
+
 		@collaborators = @project.users
 		tasks = Task.get_tasks(@project)
+
 		respond_to do |format|
 			format.html
 			format.json { render json: tasks.to_json }
@@ -22,7 +27,7 @@ class ProjectsController < ApplicationController
 
 	def create
 		project = Project.create(project_params)
-		project.update(begin_date: Date.today)
+		project.update(begin_date: Date.today, master_status: false, dev_status: false, author: current_user.username)
 		current_user.projects << project
 
 		#Create Repo on GitHub
