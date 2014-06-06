@@ -29,6 +29,7 @@ class Project < ActiveRecord::Base
 			name: self.name,
 			description: self.description,
 			end_date: self.end_date,
+			author: self.author,
 			collaborators: self.users.map { |user| [user.avatar_url, user.username] }
 		}
 	end
@@ -50,9 +51,25 @@ class Project < ActiveRecord::Base
 		client.add_collaborator("#{current_username}/#{self.name}", user)
 	end
 
-	def update_collaborators(collab_string)
+	def update_repository(project_params, client)
+		client.edit_repository(self.author + '/' + self.name, {name: project_params[:name], description: project_params[:description]})
+		return true
+	end
+
+	def update_collaborators(current_user, collab_string)
 		collaborators = collab_string.split(' ')
-		binding.pry
+		filtered_collaborators = collaborators.reject { |collaborator| collaborator == current_user.username }
+		self.users = []
+		self.users << current_user
+		filtered_collaborators.each { |collaborator| self.users << User.find_by(username: collaborator) }
+		return true
+	end
+
+	def update_github_collaborators(client, current_user)
+		github_collaborators = client.collaborators(self.author + '/' + self.name).map { |info| info[:login] }
+		self.users.each { |user| client.add_collaborator(self.author + '/' + self.name, user.username) unless github_collaborators.include?(user.username) }
+		github_collaborators.each { |collaborator| client.remove_collaborator(self.author + '/' + self.name, collaborator) unless self.users.map { |user| user.username }.include?(collaborator) }
+		return true
 	end
 
 end

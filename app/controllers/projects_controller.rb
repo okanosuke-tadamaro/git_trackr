@@ -26,6 +26,7 @@ class ProjectsController < ApplicationController
 	end
 
 	def create
+		params[:project][:name] = params[:project][:name].gsub(' ', '_')
 		project = Project.create(project_params)
 		project.update(begin_date: Date.today, master_status: false, dev_status: false, author: current_user.username)
 		current_user.projects << project
@@ -50,9 +51,18 @@ class ProjectsController < ApplicationController
 	end
 
 	def update
+		params[:project][:name] = params[:project][:name].gsub(' ', '_')
 		project = Project.find(params[:id])
+		project.update_repository(project_params, client)
 		project.update(project_params)
-		project.update_collaborators(params[:project][:collaborator_names])
+		project.update_collaborators(current_user, params[:collaborator_names])
+		project.update_github_collaborators(client, current_user)
+		return_data = project.construct_return_data(current_user)
+
+		respond_to do |format|
+			format.html
+			format.json { render json: return_data.to_json }
+		end
 	end
 
 	def destroy
