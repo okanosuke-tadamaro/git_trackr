@@ -213,11 +213,3 @@ var userShow = function() {
 	});
 
 };
-
-var projectShow = function() {
-	console.log('projectShow triggered');
-};
-
-$(document).ready(function() {
-
-});

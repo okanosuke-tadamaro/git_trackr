@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 	before_action :signed_in?
 
 	def index
-		project = Project.find(params[:project].to_i)
+		project = Project.find(params[:projectId].to_i)
 		tasks = Task.get_tasks(project)
 		respond_to do |format|
 			format.html
@@ -12,22 +12,19 @@ class TasksController < ApplicationController
 	end
 
 	def create
+		params[:task][:branch_name] = 'tr_' + params[:task][:branch_name]
 		project = Project.find(params[:project_id].to_i)
 		task = project.tasks.create(task_params)
-		task.status = 0
-		task.stage = 'todo'
-		task.priority = 0
-		task.save
+		task.update(status: 0, stage: 'todo', priority: 0)
 
 		#Create new branch on github
-		repository_name = project.name
-		octokit_branch_name = task.branch_name
-		repo_creator = project.author
-		Task.create_task_branch("#{repo_creator}/#{repository_name}", "master/development/#{octokit_branch_name}", sha)
+		task.create_task_branch(client)
+
+		return_data = task.construct_return_data
 
 		respond_to do |format|
 			format.html
-			format.json { render json: task.to_json }
+			format.json { render json: return_data.to_json }
 		end
 	end
 

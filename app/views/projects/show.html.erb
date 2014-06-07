@@ -17,6 +17,7 @@
 				<h3>To Do</h3>
 			</div>
 			<div class="column-body">
+				<ul class="task-list"></ul>
 				<p id="reveal-task-form">Add User Story</p>
 			</div>
 		</div>
@@ -25,6 +26,7 @@
 				<h3>Doing</h3>
 			</div>
 			<div class="column-body">
+				<ul class="task-list"></ul>
 			</div>
 		</div>
 		<div class="task-column" id="done">
@@ -32,6 +34,7 @@
 				<h3>Done</h3>
 			</div>
 			<div class="column-body">
+				<ul class="task-list"></ul>
 			</div>
 		</div>
 		<div class="task-column" id="icebox">
@@ -53,7 +56,7 @@
 		<div class="task-input-content">
 			<div class="task-form">
 				<p>Branch Name</p>
-				<p><input type="text" id="branch-name"></p>
+				<p>tr_<input type="text" id="branch-name"></p>
 				<p>User Story</p>
 				<p><input type="text" id="user-story"></p>
 				<p>Due Date</p>
@@ -69,27 +72,22 @@
 	<div id="project-notice-inner">
 		<div class="project-notice-header">
 			<h3>You have successfully created a Github Repository!</h3>
-			
 		</div>
 		<div class="project-notice-content">
 			<div class="form-wrap">
 			<h2>Create a new repository on the command line</h2>
 			<hr>
-				<p>touch README.md</p>
-				<p>git init</p>
-				<p>git add README.md</p>
-				<p>git commit -m "first commit"</p>
-				<p>git remote add origin git@github.com:ilanaseid/dafjalkfjalfjkooop.git</p>
-				<p>git push -u origin master</p>
+				<pre>touch README.md</pre>
+				<pre>git init</pre>
+				<pre>git add README.md</pre>
+				<pre>git commit -m "first commit"</pre>
+				<pre>git remote add origin git@github.com:<%= "#{@project.author}/#{@project.name}.git" %></pre>
+				<pre>git push -u origin master</pre>
 				<input type="submit" id="project-notice-submit" value="Okay">
 			</div>
 		</div>
 	</div>
 </div>
-
-
-
-
 
 <!-- BACKBONE TEMPLATES -->
 <script type="text/template" id="task-item-template">
@@ -111,3 +109,7 @@
 		</div>
 	</div>
 </script>
+
+<%= javascript_tag do %>
+	projectShow();
+<% end %>

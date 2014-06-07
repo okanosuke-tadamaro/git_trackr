@@ -34,12 +34,23 @@ class Project < ActiveRecord::Base
 		}
 	end
 
-	def check_master(client, author, repo_name)
+	def check_master(client)
 		begin
-		 	client.branch("#{author}/#{repo_name}", "master")
+		 	client.branch("#{self.author}/#{self.name}", "master")
 		 	return true
 		rescue
 		 	return false
+		end
+	end
+
+	def update_development(client)
+		begin
+			client.branch("#{self.author}/#{self.name}", "development")
+			return true
+		rescue
+			master_sha = client.branch("#{self.author}/#{self.name}", "master")[:commit][:sha]
+			client.create_ref("#{self.author}/#{self.name}", "heads/development", master_sha)
+			return true
 		end
 	end
 	

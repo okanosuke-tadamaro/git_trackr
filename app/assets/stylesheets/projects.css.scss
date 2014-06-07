@@ -29,7 +29,7 @@ $taskboxbgcolor: white;
 				padding: 10px 0 0 10px;
 				font-size: 16px;
 				color: white;
-			}			
+			}
 		}
 		.column-body {
 			padding: 10px;
@@ -52,12 +52,45 @@ $taskboxbgcolor: white;
 							height: 30px;
 							line-height: 30px;
 							padding: 0 10px 0 10px;
-							background-color: #CDF4DD;
+							background-color: #f0f0f0;
 							border-radius: 5px 5px 0 0;
+							h3 {
+								font-family: 'Inconsolata';
+								i { margin-right: 5px; }
+							}
 						}
 						.task-box-content {
 							padding: 10px;
 							background-color: #f9f9f9;
+							.user-story-box {
+								margin-bottom: 5px;
+								.user-story-label {
+									float: left;
+									text-transform: uppercase;
+									font-size: 12px;
+									margin-bottom: 2px;
+								}
+								.due-date {
+									float: right;
+									font-size: 12px;
+									i { margin-right: 5px; vertical-align: top; }
+								}
+							}
+							.progress-bar {
+								width: 100%;
+								height: 15px;
+								border: 1px solid lightgray;
+								background-color: darkgray;
+								.progress-inner {
+									height: 100%;
+									color: #fff;
+									text-align: right;
+									font-size: 12px;
+									line-height: 15px;
+									width: 0;
+									background-color: #48D583;
+								}
+							}
 						}
 						.task-box-footer {
 							
@@ -75,7 +108,7 @@ $taskboxbgcolor: white;
 	display: none;
 	background-color: #f5f5f5;
 	border-radius: 5px;
-	width: 500px;
+	width: 600px;
 	.project-notice-header {
 		height: 40px;
 		background-color: #48D583;
@@ -92,20 +125,18 @@ $taskboxbgcolor: white;
 		overflow: hidden;
 		padding: 15px;
 		.form-wrap {
-			li { display: inline-block; }
-			
-			p { margin-bottom: 5px; }
-			notice {
-				margin-bottom: 10px;
-				width: 100%;
-				line-height: 25px;
-				font-size: 16px;
-				font-family: 'Roboto Condensed';
+			margin-bottom: 10px;
+			width: 100%;
+			line-height: 25px;
+			font-size: 16px;
+			font-family: 'Roboto Condensed';
+			pre {
+				font-family: 'Inconsolata';
+				line-height: 20px;
+				font-size: 14px;
 			}
 			input[type='submit'] {
-				padding: 10px;
-				margin-left: 200px;
-				margin-right: 200px;
+				width: 100%;
 				margin-top: 10px;
 				margin-bottom: 0;
 				height: 40px;
