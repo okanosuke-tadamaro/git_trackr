@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   post "/create_project" => "projects#create"
   get "/check_collaborator" => "projects#check_github_user"
+  post "/create_subtask" => "tasks#create_subtask"
 
   resources :projects
   resources :tasks

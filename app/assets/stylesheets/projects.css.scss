@@ -4,8 +4,18 @@ $taskboxwidth: (980px - 45px) / 4;
 $taskboxheight: 180px;
 $taskboxbgcolor: white;
 
-#task-input {
+#task-input, #subtask-input {
 	display: none;
+	padding: 10px;
+	margin-top: 5px;
+	border-radius: 5px;
+	background-color: #CDF4DD;
+	#task-input-inner, #subtask-input-inner {
+		.task-input-header h3, .subtask-input-header h3 {
+			text-transform: uppercase;
+			
+		}
+	}
 	input { width: 100%; border: solid 1px lightgray; margin-bottom: 10px; }
 	input[type='submit'] { background-color: #48D583; height: 30px; line-height: 30px; color: white; border-radius: 3px; }
 }
@@ -52,23 +62,33 @@ $taskboxbgcolor: white;
 							height: 30px;
 							line-height: 30px;
 							padding: 0 10px 0 10px;
-							background-color: #f0f0f0;
+							background-color: #DEF7E8;
 							border-radius: 5px 5px 0 0;
 							h3 {
 								font-family: 'Inconsolata';
+								float: left;
 								i { margin-right: 5px; }
+							}
+							.task-menu-button {
+								float: right;
+								i { cursor: pointer; }
+							}
+							#task-menu {
+								font-size: 12px;
+								text-transform: uppercase;
+								li:hover { color: #48D583; cursor: pointer; };
 							}
 						}
 						.task-box-content {
 							padding: 10px;
 							background-color: #f9f9f9;
 							.user-story-box {
-								margin-bottom: 5px;
+								margin-bottom: 10px;
 								.user-story-label {
 									float: left;
 									text-transform: uppercase;
 									font-size: 12px;
-									margin-bottom: 2px;
+									margin-bottom: 5px;
 								}
 								.due-date {
 									float: right;
@@ -80,7 +100,7 @@ $taskboxbgcolor: white;
 								width: 100%;
 								height: 15px;
 								border: 1px solid lightgray;
-								background-color: darkgray;
+								background-color: white;
 								.progress-inner {
 									height: 100%;
 									color: #fff;
@@ -93,7 +113,15 @@ $taskboxbgcolor: white;
 							}
 						}
 						.task-box-footer {
-							
+							height: 40px;
+							padding: 0 10px 10px 10px;
+							background-color: #f9f9f9;
+							border-radius: 0 0 5px 5px;
+							.task-view-assignees {
+								height: 100%;
+								background-color: white;
+								border: dotted 1px lightgray;
+							}
 						}
 					}
 				}
@@ -102,6 +130,12 @@ $taskboxbgcolor: white;
 	}
 	#done { margin-right: 0; }
 	#icebox { display: none; }
+}
+
+#task-menu {
+	display: none;
+	float: left;
+	z-index: 2;
 }
 
 #project-notice {

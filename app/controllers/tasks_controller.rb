@@ -28,6 +28,20 @@ class TasksController < ApplicationController
 		end
 	end
 
+	def create_subtask
+		parent = Task.find(params[:parent_id])
+		project = parent.project
+		subtask = project.tasks.create(task_params)
+		subtask.update(status: 0, stage: parent.stage, priority: 0, parent_id: parent.id)
+		parent.subtasks << subtask
+		return_data = subtask.construct_return_data
+
+		respond_to do |format|
+			format.html
+			format.json { render json: return_data.to_json }
+		end
+	end
+
 	private
 
 	def task_params

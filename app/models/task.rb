@@ -8,7 +8,6 @@ class Task < ActiveRecord::Base
   def self.get_tasks(project)
   	tasks = project.tasks
   	return_data = []
-    # return_data << {master_status: project.master_status}
   	tasks.each do |task|
   		return_data << task.construct_return_data
   	end
@@ -24,6 +23,7 @@ class Task < ActiveRecord::Base
       status: self.status,
       priority: self.priority,
       stage: self.stage,
+      parent_id: self.parent_id,
       users: self.users.map { |user| [user.avatar_url, user.username] }
     }
   end

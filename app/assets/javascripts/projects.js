@@ -1,16 +1,64 @@
+function revealSubtaskForm(e) {
+	var thisBox = $(e.currentTarget).parent().parent().parent();
+	$('#subtask-input').insertAfter(thisBox).show();
+}
+
+function openTaskMenu(e) {
+	console.log('openTaskMenu');
+	var taskId = $(e.currentTarget).parent().parent().attr('id');
+	var header = $(e.currentTarget).parent().find('h3');
+	if ($(e.currentTarget).hasClass('closed')) {
+		var menu = $('<ul>').attr('id', 'task-menu');
+		var addSubtaskItem = $('<li>').addClass('add-subtask').text('Add Subtask');
+		addSubtaskItem.appendTo(menu);
+		addSubtaskItem.click(revealSubtaskForm);
+		header.hide();
+		menu.prependTo($(e.currentTarget).parent()).show();
+		$(e.currentTarget).find('i').removeClass('fa-caret-square-o-down').addClass('fa-caret-square-o-up');
+		$(e.currentTarget).removeClass('closed').addClass('open');
+	} else {
+		header.show();
+		var existingMenu = $(e.currentTarget).parent().find('#task-menu');
+		existingMenu.remove();
+		$(e.currentTarget).find('i').removeClass('fa-caret-square-o-up').addClass('fa-caret-square-o-down');
+		$(e.currentTarget).removeClass('open').addClass('closed');
+	}
+}
+
+function createSubtask() {
+	var parentItem = $(this).parent().parent().parent().parent().parent().find('.task-item-box');
+	$.ajax({
+		url: '/create_subtask',
+		method: 'post',
+		dataType: 'json',
+		data: {
+			task: {
+				branch_name: parentItem.parent().find('#subtask-branch-name').val(),
+				user_story: parentItem.parent().find('#subtask-user-story').val(),
+				due_date: parentItem.parent().find('#subtask-due-date').val()
+			}, parent_id: parentItem.attr('id')}
+	}).done(function(data) {
+		
+	});
+}
+
 function constructTaskItem(data) {
 	var taskItem = $('<li>').addClass('task-item');
 	var box = $('<div>').addClass('task-item-box').attr('id', data.id);
 
-
 	var header = $('<div>').addClass('task-box-header');
 	var name = $('<h3>').text(data.branch_name);
 	var branchLabel = $('<i>').addClass('fa').addClass('fa-code-fork');
+	var taskMenu = $('<div>').addClass('task-menu-button').addClass('closed');
+	var taskMenuButton = $('<i>').addClass('fa').addClass('fa-caret-square-o-down');
 	var clear = $('<div>').addClass('clear');
 	branchLabel.prependTo(name);
 	name.appendTo(header);
+	taskMenuButton.appendTo(taskMenu);
+	taskMenu.appendTo(header);
 	clear.appendTo(header);
 	header.appendTo(box);
+	taskMenu.click(openTaskMenu);
 
 	var content = $('<div>').addClass('task-box-content');
 	var userStoryBox = $('<div>').addClass('user-story-box');
@@ -39,6 +87,7 @@ function constructTaskItem(data) {
 		img.appendTo(assignees);
 		assignees.appendTo(ulAssignees);
 	});
+	// var subtaskButton = $('<div>').addClass('subtask-button').text('Add Subtask');
 	ulAssignees.appendTo(footer);
 	footer.appendTo(box);
 	box.appendTo(taskItem);
@@ -108,6 +157,7 @@ var projectShow = function() {
 
 	//CLICK EVENTS
 	$('#task-input-submit').click(createTask);
+	$('#subtask-input-submit').click(createSubtask);
 
 	grabTasks();
 };
