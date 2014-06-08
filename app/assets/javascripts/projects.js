@@ -60,7 +60,9 @@ function constructTaskItem(data) {
 	branchLabel.prependTo(name);
 	name.appendTo(header);
 	taskMenuButton.appendTo(taskMenu);
-	taskMenu.appendTo(header);
+	if (data.parent_id === null) {
+		taskMenu.appendTo(header);
+	}
 	clear.appendTo(header);
 	header.appendTo(box);
 	taskMenu.click(openTaskMenu);

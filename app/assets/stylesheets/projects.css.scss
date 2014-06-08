@@ -13,12 +13,13 @@ $taskboxbgcolor: white;
 	#task-input-inner, #subtask-input-inner {
 		.task-input-header h3, .subtask-input-header h3 {
 			text-transform: uppercase;
-			
 		}
 	}
 	input { width: 100%; border: solid 1px lightgray; margin-bottom: 10px; }
 	input[type='submit'] { background-color: #48D583; height: 30px; line-height: 30px; color: white; border-radius: 3px; }
 }
+
+#subtask-input { background-color: #D6FFFF; input[type='submit'] { background-color: #00FFFF; } }
 
 #tasks {
 	.task-column {
@@ -129,7 +130,7 @@ $taskboxbgcolor: white;
 					margin-top: 5px;
 					.task-item-box {
 						.task-box-header {
-							background-color: #EDFAFD;
+							background-color: #D6FFFF;
 							h3 {
 								font-family: 'Inconsolata';
 								float: left;
@@ -144,6 +145,9 @@ $taskboxbgcolor: white;
 								text-transform: uppercase;
 								li:hover { color: #48D583; cursor: pointer; };
 							}
+						}
+						.task-box-content, .task-box-footer {
+							background-color: #EBFFFF;
 						}
 					}
 				}
