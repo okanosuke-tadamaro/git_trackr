@@ -125,6 +125,28 @@ $taskboxbgcolor: white;
 						}
 					}
 				}
+				.subtask-list {
+					margin-top: 5px;
+					.task-item-box {
+						.task-box-header {
+							background-color: #EDFAFD;
+							h3 {
+								font-family: 'Inconsolata';
+								float: left;
+								i { margin-right: 5px; }
+							}
+							.task-menu-button {
+								float: right;
+								i { cursor: pointer; }
+							}
+							#task-menu {
+								font-size: 12px;
+								text-transform: uppercase;
+								li:hover { color: #48D583; cursor: pointer; };
+							}
+						}
+					}
+				}
 			}
 		}
 	}

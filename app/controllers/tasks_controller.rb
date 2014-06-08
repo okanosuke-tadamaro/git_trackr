@@ -34,6 +34,7 @@ class TasksController < ApplicationController
 		subtask = project.tasks.create(task_params)
 		subtask.update(status: 0, stage: parent.stage, priority: 0, parent_id: parent.id)
 		parent.subtasks << subtask
+		subtask.create_task_branch(client)
 		return_data = subtask.construct_return_data
 
 		respond_to do |format|

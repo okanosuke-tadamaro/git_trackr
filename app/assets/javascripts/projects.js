@@ -38,12 +38,17 @@ function createSubtask() {
 				due_date: parentItem.parent().find('#subtask-due-date').val()
 			}, parent_id: parentItem.attr('id')}
 	}).done(function(data) {
-		
+		var newSubtask = constructTaskItem(data);
+		$('#' + data.parent_id).parent().find('.subtask-list').append(newSubtask);
 	});
 }
 
 function constructTaskItem(data) {
 	var taskItem = $('<li>').addClass('task-item');
+	taskItem.data('parent_id', data.parent_id);
+	taskItem.data('id', data.id);
+	taskItem.data('stage', data.stage);
+	taskItem.data('status', data.status);
 	var box = $('<div>').addClass('task-item-box').attr('id', data.id);
 
 	var header = $('<div>').addClass('task-box-header');
@@ -87,18 +92,14 @@ function constructTaskItem(data) {
 		img.appendTo(assignees);
 		assignees.appendTo(ulAssignees);
 	});
-	// var subtaskButton = $('<div>').addClass('subtask-button').text('Add Subtask');
 	ulAssignees.appendTo(footer);
 	footer.appendTo(box);
 	box.appendTo(taskItem);
-	
-	if (data.stage === 'todo') {
-		$('#todo .task-list').append(taskItem);
-	} else if (data.stage === 'doing') {
-		$('#doing .task-list').append(taskItem);
-	} else if (data.stage === 'done') {
-		$('#done .task-list').append(taskItem);
-	}
+
+	var subtaskList = $('<ul>').addClass('subtask-list');
+	subtaskList.appendTo(taskItem);
+
+	return taskItem;
 }
 
 function progress(percent, element) {
@@ -135,11 +136,36 @@ function grabTasks() {
 		dataType: 'json',
 		data: {projectId: $('.project-info').attr('id')}
 	}).done(function(data) {
-		console.log(data);
+		//CONSTRUCT TASK BOXES
+		var boxes = [];
 		$.each(data, function(index, value) {
-			console.log(value);
-			constructTaskItem(value);
-			progress(value.status, $('#' + value.id).find('.progress-bar'));
+			boxes.push(constructTaskItem(value));
+			// progress(value.status, $('#' + value.id).find('.progress-bar'));
+		});
+		console.log('boxes');
+		console.log(boxes);
+		//APPEND BOXES TO DOM
+		var topLevels = $.grep(boxes, function(value) {
+			return value.data('parent_id') === null;
+		});
+		console.log('topLevels');
+		console.log(topLevels);
+		while (boxes.length > topLevels.length) {
+			if (boxes[0].data('parent_id') !== null) {
+				var currentBox = boxes.splice(0, 1)[0];
+				var parent = boxes[$.inArray($.grep(boxes, function(value) { return value.data('id') === currentBox.data('parent_id'); })[0], boxes)];
+				parent.find('.subtask-list').append(currentBox);
+			}
+		}
+		$.each(boxes, function(index, value) {
+			if (value.data('stage') === 'todo') {
+				$('#todo .task-list').append(value);
+			} else if (value.data('stage') === 'doing') {
+				$('#doing .task-list').append(value);
+			} else if (value.data('stage') === 'done') {
+				$('#done .task-list').append(value);
+			}
+			progress(value.data('status'), $('#' + value.data('id')).find('.progress-bar'));
 		});
 	});
 }

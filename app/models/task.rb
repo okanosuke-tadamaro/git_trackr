@@ -29,7 +29,8 @@ class Task < ActiveRecord::Base
   end
 
   def create_task_branch(client)
-    dev_sha = client.branch("#{self.project.author}/#{self.project.name}", "development")[:commit][:sha]
+    parent = Task.find_by(parent_id: self.parent_id).branch_name || 'development'
+    dev_sha = client.branch("#{self.project.author}/#{self.project.name}", parent)[:commit][:sha]
     client.create_ref("#{self.project.author}/#{self.project.name}", "heads/#{self.branch_name}", dev_sha)
     return true
   end
