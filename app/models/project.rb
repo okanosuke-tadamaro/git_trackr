@@ -83,4 +83,28 @@ class Project < ActiveRecord::Base
 		return true
 	end
 
+	def out_of_sync?(client)
+		updated = self.tasks.order(last_commit: :desc).first.last_commit
+		self.update(updated_at: updated)
+		github_repo = client.repository(self.author + '/' + self.name)
+		return true if github_repo.pushed_at > (self.updated_at.to_time + 1.minutes)
+	end
+
+	def update_project(client)
+		# UPDATE USER STORIES
+		self.tasks.each do |task|
+			begin
+				branch_commits = client.commits(self.author + '/' + self.name, task.branch_name).map { |commit| {last_commit: commit[:commit][:author][:date], message: commit[:commit][:message]} }
+			rescue
+				branch_commits = []
+			end
+			branch_commits.each do |commit|
+				if commit[:last_commit] > task.last_commit && commit[:message].include?('tr_')
+					task.update(last_commit: commit[:last_commit], status: commit[:message].scan(/\btr_\d*\b/).first.gsub('tr_', '').to_i)
+					break
+				end
+			end
+		end
+	end
+
 end

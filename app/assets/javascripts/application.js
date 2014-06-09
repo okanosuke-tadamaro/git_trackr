@@ -16,5 +16,5 @@
 //= require transit
 //= require taggableList
 //= require jquery.easyModal
-//= require jquery.gridster
+//= require sortable
 //= require_tree .

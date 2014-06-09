@@ -6,7 +6,7 @@ class Task < ActiveRecord::Base
   has_many :subtasks, :through => :nested_tasks
 
   def self.get_tasks(project)
-  	tasks = project.tasks
+    tasks = project.tasks
   	return_data = []
   	tasks.each do |task|
   		return_data << task.construct_return_data
@@ -29,7 +29,11 @@ class Task < ActiveRecord::Base
   end
 
   def create_task_branch(client)
-    parent = Task.find_by(parent_id: self.parent_id).branch_name || 'development'
+    if self.parent_id != nil
+      parent = Task.find(self.parent_id).branch_name
+    else
+      parent = 'development'
+    end
     dev_sha = client.branch("#{self.project.author}/#{self.project.name}", parent)[:commit][:sha]
     client.create_ref("#{self.project.author}/#{self.project.name}", "heads/#{self.branch_name}", dev_sha)
     return true

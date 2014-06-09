@@ -104,6 +104,16 @@ function constructTaskItem(data) {
 	return taskItem;
 }
 
+function appendBox(value) {
+	if (value.data('status') === 0) {
+		$('#todo .task-list').append(value);
+	} else if (value.data('status') > 0 && value.data('status') < 100) {
+		$('#doing .task-list').append(value);
+	} else if (value.data('status') === 100) {
+		$('#done .task-list').append(value);
+	}
+}
+
 function progress(percent, element) {
   var progressBarWidth = percent * element.width() / 100;
   element.find('.progress-inner').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
@@ -126,7 +136,8 @@ function createTask() {
 		dataType: 'json',
 		data: {task: {branch_name: branchName, user_story: userStory, due_date: dueDate}, project_id: projectId}
 	}).done(function(data) {
-		constructTaskItem(data);
+		var item = constructTaskItem(data);
+		appendBox(item);
 	});
 }
 
@@ -160,13 +171,7 @@ function grabTasks() {
 			}
 		}
 		$.each(boxes, function(index, value) {
-			if (value.data('stage') === 'todo') {
-				$('#todo .task-list').append(value);
-			} else if (value.data('stage') === 'doing') {
-				$('#doing .task-list').append(value);
-			} else if (value.data('stage') === 'done') {
-				$('#done .task-list').append(value);
-			}
+			appendBox(value);
 			progress(value.data('status'), $('#' + value.data('id')).find('.progress-bar'));
 		});
 	});
@@ -188,4 +193,25 @@ var projectShow = function() {
 	$('#subtask-input-submit').click(createSubtask);
 
 	grabTasks();
+
+	//SORTABLES
+	$('.task-list').sortable({
+		nested: false,
+		exclude: '.subtask-list li'
+	});
+	$('.task-view-assignees').sortable({
+		group: 'assignees',
+		drag: false,
+		drop: true,
+		vertical: false
+	});
+	$('#side-bar .user-list').sortable({
+		group: 'assignees',
+		// drop: false,
+		handle: '.avatar',
+		onDragStart: function(item, container, _super) {
+			console.log('onDragStart');
+			item.clone();
+		}
+	});
 };

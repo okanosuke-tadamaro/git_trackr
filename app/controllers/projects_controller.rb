@@ -12,10 +12,14 @@ class ProjectsController < ApplicationController
 
 	def show
 		@project = Project.find(params[:id])
+
+		if @project.tasks.any? && @project.out_of_sync?(client)
+			@project.update_project(client)
+		end
+
 		@project.check_master(client)
 		@project.update(master_status: true) if !@project.master_status && @project.check_master(client)
 		@project.update(dev_status: true) if @project.master_status && @project.update_development(client)
-
 		@collaborators = @project.users
 		tasks = Task.get_tasks(@project)
 

@@ -1,11 +1,11 @@
 <div id="side-bar">
 	<div class="side-bar-content">
 		<p class="project-info" id="<%= @project.id %>" data="<%= @project.master_status %>"><%= @project.name %></p>
-		<div class="user-list">
+		<ul class="user-list">
 			<% @collaborators.each do |user| %>
-			<img src="<%= user.avatar_url %>"></a>
+				<li class="user"><img src="<%= user.avatar_url %>" class="avatar"></li>
 			<% end %>
-		</div>
+		</ul>
 	</div>
 </div>
 

@@ -13,9 +13,10 @@ class TasksController < ApplicationController
 
 	def create
 		params[:task][:branch_name] = 'tr_' + params[:task][:branch_name]
+		params[:task][:branch_name] = params[:task][:branch_name].gsub(' ', '_')
 		project = Project.find(params[:project_id].to_i)
 		task = project.tasks.create(task_params)
-		task.update(status: 0, stage: 'todo', priority: 0)
+		task.update(status: 0, stage: 'todo', priority: 0, last_commit: Time.now)
 
 		#Create new branch on github
 		task.create_task_branch(client)
@@ -29,10 +30,12 @@ class TasksController < ApplicationController
 	end
 
 	def create_subtask
-		parent = Task.find(params[:parent_id])
+		params[:task][:branch_name] = 'tr_' + params[:task][:branch_name]
+		params[:task][:branch_name] = params[:task][:branch_name].gsub(' ', '_')
+		parent = Task.find(params[:parent_id].to_i)
 		project = parent.project
 		subtask = project.tasks.create(task_params)
-		subtask.update(status: 0, stage: parent.stage, priority: 0, parent_id: parent.id)
+		subtask.update(status: 0, stage: parent.stage, priority: 0, parent_id: parent.id, last_commit: Time.now)
 		parent.subtasks << subtask
 		subtask.create_task_branch(client)
 		return_data = subtask.construct_return_data
