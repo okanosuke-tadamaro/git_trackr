@@ -25,6 +25,28 @@ function openTaskMenu(e) {
 	}
 }
 
+function addUser(task, user) {
+	$.ajax({
+		url: '/add_user',
+		method: 'post',
+		dataType: 'json',
+		data: {task_id: parseInt(task), username: user}
+	}).done(function(data) {
+		console.log('added user');
+	});
+}
+
+function removeUser(task, user) {
+	$.ajax({
+		url: '/remove_user',
+		method: 'delete',
+		dataType: 'json',
+		data: {task_id: parseInt(task), username: user}
+	}).done(function(data) {
+		console.log('removed user');
+	});
+}
+
 function createSubtask() {
 	var parentItem = $(this).parent().parent().parent().parent().parent().find('.task-item-box');
 	$.ajax({
@@ -186,11 +208,16 @@ function grabTasks() {
 				console.log('dropped');
 				var img = $(ui.draggable.context).find('img').clone().removeClass('avatar');
 				var listItem = $('<li>').addClass('task-assignee').addClass('ui-draggable');
+				var task = $(this).parent().parent().attr('id');
 				img.appendTo(listItem);
+				addUser(parseInt(task), img.attr('id'));
 				$(this).append(listItem);
 			}
 		});
 		$('.task-view-assignees li').dblclick(function(e) {
+			var task = $(e.currentTarget).parent().parent().parent().attr('id');
+			var user = $(e.currentTarget).find('img').attr('id');
+			removeUser(task, user);
 			$(e.currentTarget).remove();
 		});
 		$('.task-list').sortable({

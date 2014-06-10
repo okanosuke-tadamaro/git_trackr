@@ -3,7 +3,7 @@
 		<p class="project-info" id="<%= @project.id %>" data="<%= @project.master_status %>"><%= @project.name %></p>
 		<ul class="user-list">
 			<% @collaborators.each do |user| %>
-				<li class="user"><img src="<%= user.avatar_url %>" class="avatar"></li>
+				<li class="user"><img src="<%= user.avatar_url %>" class="avatar" id="<%= user.username %>"></li>
 			<% end %>
 		</ul>
 	</div>

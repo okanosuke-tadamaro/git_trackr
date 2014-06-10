@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   post "/create_project" => "projects#create"
   get "/check_collaborator" => "projects#check_github_user"
   post "/create_subtask" => "tasks#create_subtask"
+  delete "/remove_user" => "tasks#remove_user"
+  post "/add_user" => "tasks#add_user"
 
   resources :projects
   resources :tasks

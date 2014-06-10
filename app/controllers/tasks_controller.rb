@@ -46,6 +46,28 @@ class TasksController < ApplicationController
 		end
 	end
 
+	def remove_user
+		task = Task.find(params[:task_id])
+		user = User.find_by(username: params[:username])
+		task.users.destroy(user)
+
+		respond_to do |format|
+			format.html
+			format.json { render json: user.to_json }
+		end
+	end
+
+	def add_user
+		task = Task.find(params[:task_id])
+		user = User.find_by(username: params[:username])
+		task.users << user
+
+		respond_to do |format|
+			format.html
+			format.json { render json: user.to_json }
+		end
+	end
+
 	private
 
 	def task_params
