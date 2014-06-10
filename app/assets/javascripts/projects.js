@@ -91,8 +91,8 @@ function constructTaskItem(data) {
 	$.each(data.users, function(index, value) {
 		var assignee = $('<li>').addClass('task-assignee');
 		var img = $('<img>').attr('src', value[0]).attr('id', value[1]);
-		img.appendTo(assignees);
-		assignees.appendTo(ulAssignees);
+		img.appendTo(assignee);
+		assignee.appendTo(ulAssignees);
 	});
 	ulAssignees.appendTo(footer);
 	footer.appendTo(box);
@@ -174,11 +174,30 @@ function grabTasks() {
 			appendBox(value);
 			progress(value.data('status'), $('#' + value.data('id')).find('.progress-bar'));
 		});
+
+		$('.task-view-assignees').droppable({
+			accept: '.user-list li',
+			drop: function(event, ui) {
+				console.log('dropped');
+				var img = $(ui.draggable.context).find('img').clone().removeClass('avatar');
+				var listItem = $('<li>').addClass('task-assignee');
+				img.appendTo(listItem);
+				$(this).append(listItem);
+			}
+		});
+		$('.task-view-assignees li').draggable({
+			revert: function(valid) {
+				if (!valid) {
+					this.remove();
+				}
+			}
+		});
 	});
 }
 
 var projectShow = function() {
 	console.log('projectShow triggered');
+
 	// SETUP MASTER BRANCH MODAL
 	$('#project-notice').easyModal({ top: 100, autoOpen: false, overlayOpacity: 0.3, overlayColor: "#333", overlayClose: false, closeOnEscape: true });
 	if($('.project-info').attr('data') === 'false') {
@@ -194,24 +213,13 @@ var projectShow = function() {
 
 	grabTasks();
 
-	//SORTABLES
-	$('.task-list').sortable({
-		nested: false,
-		exclude: '.subtask-list li'
-	});
-	$('.task-view-assignees').sortable({
-		group: 'assignees',
-		drag: false,
-		drop: true,
-		vertical: false
-	});
-	$('#side-bar .user-list').sortable({
-		group: 'assignees',
-		// drop: false,
-		handle: '.avatar',
-		onDragStart: function(item, container, _super) {
-			console.log('onDragStart');
-			item.clone();
-		}
+	// //SORTABLES
+	// $('.task-list').sortable({
+	// 	nested: false,
+	// 	exclude: 'li'
+	// });
+	$('.user-list li').draggable({
+		revert: 'invalid',
+		helper: 'clone'
 	});
 };

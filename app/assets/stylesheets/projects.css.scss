@@ -122,6 +122,16 @@ $taskboxbgcolor: white;
 								height: 100%;
 								background-color: white;
 								border: dotted 1px lightgray;
+								.task-assignee {
+									display: inline-block;
+									margin-right: 3px;
+									height: 40px;
+									overflow: hidden;
+									img {
+										border-radius: 50%;
+										height: 40px;
+									}
+								}
 							}
 						}
 					}

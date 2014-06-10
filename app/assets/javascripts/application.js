@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require jquery-ui.min
 //= require transit
 //= require taggableList
 //= require jquery.easyModal
