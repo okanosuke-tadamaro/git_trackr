@@ -39,6 +39,7 @@ function createSubtask() {
 			}, parent_id: parentItem.attr('id')}
 	}).done(function(data) {
 		var newSubtask = constructTaskItem(data);
+		newSubtask.removeClass('task-item').addClass('subtask-item');
 		$('#' + data.parent_id).parent().find('.subtask-list').append(newSubtask);
 	});
 }
@@ -98,7 +99,7 @@ function constructTaskItem(data) {
 	footer.appendTo(box);
 	box.appendTo(taskItem);
 
-	var subtaskList = $('<ul>').addClass('subtask-list');
+	var subtaskList = $('<div>').addClass('subtask-list');
 	subtaskList.appendTo(taskItem);
 
 	return taskItem;
@@ -167,7 +168,10 @@ function grabTasks() {
 			if (boxes[0].data('parent_id') !== null) {
 				var currentBox = boxes.splice(0, 1)[0];
 				var parent = boxes[$.inArray($.grep(boxes, function(value) { return value.data('id') === currentBox.data('parent_id'); })[0], boxes)];
-				parent.find('.subtask-list').append(currentBox);
+				var subtaskBox = $('<div>').addClass('subtask-item');
+				subtaskBox.append($(currentBox).children());
+				console.log($(currentBox).children());
+				parent.find('.subtask-list').append(subtaskBox);
 			}
 		}
 		$.each(boxes, function(index, value) {
@@ -177,21 +181,25 @@ function grabTasks() {
 
 		$('.task-view-assignees').droppable({
 			accept: '.user-list li',
+			scope: 'users',
 			drop: function(event, ui) {
 				console.log('dropped');
 				var img = $(ui.draggable.context).find('img').clone().removeClass('avatar');
-				var listItem = $('<li>').addClass('task-assignee');
+				var listItem = $('<li>').addClass('task-assignee').addClass('ui-draggable');
 				img.appendTo(listItem);
 				$(this).append(listItem);
 			}
 		});
-		$('.task-view-assignees li').draggable({
-			revert: function(valid) {
-				if (!valid) {
-					this.remove();
-				}
-			}
+		$('.task-view-assignees li').dblclick(function(e) {
+			$(e.currentTarget).remove();
 		});
+		$('.task-list').sortable({
+			items: 'li:not(.subtask-item)',
+			cancel: '.subtask-item',
+			containment: '.task-list',
+			revert: 'invalid'
+		});
+		$('.task-list .subtask-item').disableSelection();
 	});
 }
 
@@ -219,6 +227,7 @@ var projectShow = function() {
 	// 	exclude: 'li'
 	// });
 	$('.user-list li').draggable({
+		scope: 'users',
 		revert: 'invalid',
 		helper: 'clone'
 	});

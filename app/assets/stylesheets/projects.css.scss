@@ -28,11 +28,11 @@ $taskboxbgcolor: white;
 		margin-right: 10px;
 		background-color: $taskboxbgcolor;
 		min-height: 100px;
-		border-radius: 5px;
+		/*border-radius: 5px;*/
 		.column-header {
 			height: 40px;
 			background-color: #48D583;
-			border-radius: 5px 5px 0 0;
+			/*border-radius: 5px 5px 0 0;*/
 			h3 {
 				float: left;
 				text-transform: uppercase;
@@ -47,7 +47,7 @@ $taskboxbgcolor: white;
 			#reveal-task-form {
 				text-align: center;
 				background-color: #48D583;
-				border-radius: 3px;
+				/*border-radius: 3px;*/
 				height: 30px;
 				line-height: 30px;
 				color: white;
@@ -58,13 +58,13 @@ $taskboxbgcolor: white;
 				.task-item {
 					margin-bottom: 10px;
 					.task-item-box {
-						border-radius: 5px;
+						/*border-radius: 5px;*/
 						.task-box-header {
 							height: 30px;
 							line-height: 30px;
 							padding: 0 10px 0 10px;
 							background-color: #DEF7E8;
-							border-radius: 5px 5px 0 0;
+							/*border-radius: 5px 5px 0 0;*/
 							h3 {
 								font-family: 'Inconsolata';
 								float: left;
@@ -115,13 +115,13 @@ $taskboxbgcolor: white;
 						}
 						.task-box-footer {
 							height: 40px;
-							padding: 0 10px 10px 10px;
-							background-color: #f9f9f9;
-							border-radius: 0 0 5px 5px;
+							padding: 10px 10px 10px 10px;
+							background-color: #DEF7E8;
+							/*border-radius: 0 0 5px 5px;*/
 							.task-view-assignees {
 								height: 100%;
-								background-color: white;
-								border: dotted 1px lightgray;
+								/*background-color: white;
+								border: dotted 1px lightgray;*/
 								.task-assignee {
 									display: inline-block;
 									margin-right: 3px;
@@ -130,6 +130,7 @@ $taskboxbgcolor: white;
 									img {
 										border-radius: 50%;
 										height: 40px;
+										box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
 									}
 								}
 							}
@@ -156,8 +157,11 @@ $taskboxbgcolor: white;
 								li:hover { color: #48D583; cursor: pointer; };
 							}
 						}
-						.task-box-content, .task-box-footer {
+						.task-box-content {
 							background-color: #EBFFFF;
+						}
+						.task-box-footer {
+							background-color: #D6FFFF;
 						}
 					}
 				}
