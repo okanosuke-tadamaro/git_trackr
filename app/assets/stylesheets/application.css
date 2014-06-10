@@ -10,6 +10,8 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require_reset
+ *= require_jquery.gridster
  *= require_tree .
  *= require_self
  */

@@ -1,0 +1,45 @@
+<div id="side-bar">
+	<div class="side-bar-content">
+		<img id="user-avatar" src="<%= current_user.avatar_url %>" alt="<%= current_user.username %>">
+		<p><%= current_user.username %></p>
+		<p id="trigger-project-input">New Project</p>
+	</div>
+</div>
+
+<!-- CONTENTS -->
+<div id="content">
+	<div id="projects">
+		<ul class="project-list">
+			
+		</ul>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div id="project-input">
+	<div id="project-input-inner">
+		<div class="project-input-header">
+			<h3>Add new project</h3>
+		</div>
+		<div class="project-input-content">
+			<div class="form-wrap">
+				<p>Project Name</p>
+				<p><input type="text" id="project-name"></p>
+				<p>Description</p>
+				<p><input type="text" id="project-description"></p>
+				<p>End Date</p>
+				<p><input type="date" id="project-date"></p>
+				<p>Collaborators</p>
+				<ul class="taggable-list">
+					<li class="input-list-item"><input type="text" id="project-collaborators"></li>
+				</ul>
+				<input type="submit" id="project-input-submit" value="Create">
+				<input type="submit" id="project-edit-submit" value="Save">
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= javascript_tag do %>
+	userShow();
+<% end %>
