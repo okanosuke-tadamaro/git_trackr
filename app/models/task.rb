@@ -6,7 +6,7 @@ class Task < ActiveRecord::Base
   has_many :subtasks, :through => :nested_tasks
 
   def self.get_tasks(project)
-    tasks = project.tasks
+    tasks = project.tasks.order(stage: :asc).order(priority: :asc)
   	return_data = []
   	tasks.each do |task|
   		return_data << task.construct_return_data

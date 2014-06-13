@@ -68,6 +68,19 @@ class TasksController < ApplicationController
 		end
 	end
 
+	def set_order
+		project = Project.find(params[:project].to_i)
+		tasks = project.tasks.where(stage: params[:stage])
+		params[:order].each_with_index do |id, index|
+			task = Task.find(id.to_i)
+			task.update(priority: index)
+		end
+		respond_to do |format|
+			format.html
+			format.json { render json: true.to_json }
+		end
+	end
+
 	private
 
 	def task_params

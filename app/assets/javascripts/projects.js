@@ -145,6 +145,8 @@ function grabTasks() {
 		_.each(boxes, function (value) {
 			var subtask = constructSubtaskItem(this[value]);
 			$('li[data-id="' + this[value].parent_id + '"] .subtask-list').append(subtask);
+			progress(this[value].status, $('#' + this[value].id).find('.progress-bar'));
+			$('#' + this[value].id).find('.task-menu-button').click(openTaskMenu);
 		}, data);
 
 		// ADD USER FROM SIDE BAR
@@ -170,11 +172,26 @@ function grabTasks() {
 			$(e.currentTarget).remove();
 		});
 		
-		// SORT TASKS (IN COLUMNS)
+		// SORTABLE TASKS (IN COLUMNS)
 		$('.task-list').sortable({
 			items: 'li:not(.subtask-item)',
 			cancel: '.subtask-item',
-			// containment: '.task-list',
+			stop: function(event, ui) {
+				console.log('stopped');
+				var project = $('.project-info').attr('id');
+				var stage = ui.item.parent().parent().parent().attr('id');
+				var list = ui.item.parent().find('.task-item');
+				var order = [];
+				list.each(function(index, value) {
+					order.push(value.dataset.id);
+				});
+				$.ajax({
+					url: '/set_order',
+					method: 'put',
+					dataType: 'json',
+					data: {order: order, stage: stage, project: project}
+				});
+			},
 			revert: 'invalid'
 		});
 		$('.task-list .subtask-item').disableSelection();
