@@ -6,7 +6,8 @@ function showTaskForm(e) {
 }
 
 function revealSubtaskForm(e) {
-	var thisBox = $(e.currentTarget).parent().parent().parent();
+	var thisBox = $(e.currentTarget).parent().parent().parent().parent();
+	$('#subtask-input').data('parent_id', thisBox.data('id'));
 	$('#subtask-input').insertAfter(thisBox).show();
 }
 
@@ -81,13 +82,15 @@ function createTask() {
 		dataType: 'json',
 		data: {task: {branch_name: branchName, user_story: userStory, due_date: dueDate}, project_id: projectId}
 	}).done(function(data) {
-		var item = constructTaskItem(data);
-		appendBox(item, data.status);
+		grabTasks();
+		// var item = constructTaskItem(data);
+		// appendBox(item, data.status);
 	});
 }
 
 function createSubtask() {
-	var parentItem = $(this).parent().parent().parent().parent().parent().find('.task-item-box');
+	var parentItem = $(this).parent().parent().parent().parent();
+	var parentId = parentItem.data('parent_id');
 	$.ajax({
 		url: '/create_subtask',
 		method: 'post',
@@ -98,12 +101,13 @@ function createSubtask() {
 				user_story: parentItem.parent().find('#subtask-user-story').val(),
 				due_date: parentItem.parent().find('#subtask-due-date').val()
 			},
-			parent_id: parentItem.attr('id')
+			parent_id: parentId
 		}
 	}).done(function(data) {
-		var newSubtask = constructTaskItem(data);
-		newSubtask.removeClass('task-item').addClass('subtask-item');
-		$('#' + data.parent_id).parent().find('.subtask-list').append(newSubtask);
+		grabTasks();
+		// var newSubtask = constructTaskItem(data);
+		// newSubtask.removeClass('task-item').addClass('subtask-item');
+		// $('#' + data.parent_id).parent().find('.subtask-list').append(newSubtask);
 	});
 }
 
@@ -129,6 +133,7 @@ function grabTasks() {
 		dataType: 'json',
 		data: {projectId: $('.project-info').attr('id')}
 	}).done(function(data) {
+		$('.task-list').empty();
 		var boxes = [];
 		$.each(data, function(index, value) {
 			if (value.parent_id === null) {

@@ -75,6 +75,7 @@ $taskboxbgcolor: white;
 }
 
 #subtask-input {
+	margin-bottom: 10px;
 	background-color: #ECF6FD;
 	#subtask-input-inner {
 		.subtask-input-header {
@@ -212,8 +213,8 @@ $taskboxbgcolor: white;
 					}
 				}
 				.subtask-list {
-					margin-top: 2px;
 					.task-item-box {
+						margin-top: 2px;
 						.task-box-header {
 							background-color: #B4DAF8;
 							.task-menu-button {
