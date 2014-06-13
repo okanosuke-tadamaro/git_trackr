@@ -45,3 +45,47 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+form {
+     margin:0;
+     padding:0;
+     border:0;
+     outline:0;
+     font-size:100%;
+     vertical-align:baseline;
+     background:transparent;
+}
+
+select, input, textarea, button { 
+     vertical-align:middle; 
+     font-family: 'Roboto',
+     position:relative; 
+     margin: 0 4px 2px 0;
+     *margin-right:3px; 
+     top:-1px;  
+}
+
+input { 
+     height: 16px; 
+     line-height: 16px; 
+}
+
+button, input[type="button"] {
+     overflow:visible; 
+     height:22px;
+     padding:0 3px;
+}
+
+select { 
+     height: 20px; 
+     line-height: 20px;
+}
+
+input[type="checkbox"],
+input[type="radio"] { 
+     border:none; 
+     top:-2px;
+     top:0\9;
+     margin-right:2px; 
+     margin-right: 0\9; 
+}

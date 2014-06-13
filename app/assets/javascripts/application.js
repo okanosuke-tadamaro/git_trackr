@@ -12,9 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require underscore
 //= require jquery-ui.min
-//= require transit
 //= require taggableList
 //= require jquery.easyModal
-//= require sortable
 //= require_tree .

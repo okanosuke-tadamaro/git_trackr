@@ -1,6 +1,18 @@
+// UI FUNCTIONALITY
+function showTaskForm(e) {
+	$('#task-input').appendTo('#todo .column-body');
+	$(e.currentTarget).hide();
+	$('#task-input').show();
+}
+
 function revealSubtaskForm(e) {
 	var thisBox = $(e.currentTarget).parent().parent().parent();
 	$('#subtask-input').insertAfter(thisBox).show();
+}
+
+function hideTaskForm(e) {
+	$(e.currentTarget).parent().parent().parent().hide();
+	$('#reveal-task-form').show();
 }
 
 function openTaskMenu(e) {
@@ -25,6 +37,17 @@ function openTaskMenu(e) {
 	}
 }
 
+function appendBox(task, status) {
+	if (status === 0) {
+		$('#todo .task-list').append(task);
+	} else if (status > 0 && status < 100) {
+		$('#doing .task-list').append(task);
+	} else if (status === 100) {
+		$('#done .task-list').append(task);
+	}
+}
+
+//TALKING TO BACK-END FUNCTIONALITY
 function addUser(task, user) {
 	$.ajax({
 		url: '/add_user',
@@ -47,107 +70,6 @@ function removeUser(task, user) {
 	});
 }
 
-function createSubtask() {
-	var parentItem = $(this).parent().parent().parent().parent().parent().find('.task-item-box');
-	$.ajax({
-		url: '/create_subtask',
-		method: 'post',
-		dataType: 'json',
-		data: {
-			task: {
-				branch_name: parentItem.parent().find('#subtask-branch-name').val(),
-				user_story: parentItem.parent().find('#subtask-user-story').val(),
-				due_date: parentItem.parent().find('#subtask-due-date').val()
-			}, parent_id: parentItem.attr('id')}
-	}).done(function(data) {
-		var newSubtask = constructTaskItem(data);
-		newSubtask.removeClass('task-item').addClass('subtask-item');
-		$('#' + data.parent_id).parent().find('.subtask-list').append(newSubtask);
-	});
-}
-
-function constructTaskItem(data) {
-	var taskItem = $('<li>').addClass('task-item');
-	taskItem.data('parent_id', data.parent_id);
-	taskItem.data('id', data.id);
-	taskItem.data('stage', data.stage);
-	taskItem.data('status', data.status);
-	var box = $('<div>').addClass('task-item-box').attr('id', data.id);
-
-	var header = $('<div>').addClass('task-box-header');
-	var name = $('<h3>').text(data.branch_name);
-	var branchLabel = $('<i>').addClass('fa').addClass('fa-code-fork');
-	var taskMenu = $('<div>').addClass('task-menu-button').addClass('closed');
-	var taskMenuButton = $('<i>').addClass('fa').addClass('fa-caret-square-o-down');
-	var clear = $('<div>').addClass('clear');
-	branchLabel.prependTo(name);
-	name.appendTo(header);
-	taskMenuButton.appendTo(taskMenu);
-	if (data.parent_id === null) {
-		taskMenu.appendTo(header);
-	}
-	clear.appendTo(header);
-	header.appendTo(box);
-	taskMenu.click(openTaskMenu);
-
-	var content = $('<div>').addClass('task-box-content');
-	var userStoryBox = $('<div>').addClass('user-story-box');
-	var userStoryLabel = $('<p>').addClass('user-story-label').text('User Story:');
-	var userStory = $('<p>').text(data.user_story);
-	var dueDateIcon = $('<i>').addClass('fa').addClass('fa-calendar');
-	var dueDate = $('<p>').addClass('due-date').text(data.due_date);
-	var progressWrap = $('<div>').addClass('progress-bar');
-	var innerProgress = $('<div>').addClass('progress-inner');
-	var status = $('<p>').text(data.status);
-	userStoryLabel.appendTo(userStoryBox);
-	dueDateIcon.prependTo(dueDate);
-	dueDate.appendTo(userStoryBox);
-	clear.clone().appendTo(userStoryBox);
-	userStory.appendTo(userStoryBox);
-	content.append(userStoryBox);
-	innerProgress.appendTo(progressWrap);
-	progressWrap.appendTo(content);
-	content.appendTo(box);
-
-	var footer = $('<div>').addClass('task-box-footer');
-	var ulAssignees = $('<ul>').addClass('task-view-assignees');
-	$.each(data.users, function(index, value) {
-		var assignee = $('<li>').addClass('task-assignee');
-		var img = $('<img>').attr('src', value[0]).attr('id', value[1]);
-		img.appendTo(assignee);
-		assignee.appendTo(ulAssignees);
-	});
-	ulAssignees.appendTo(footer);
-	footer.appendTo(box);
-	box.appendTo(taskItem);
-
-	var subtaskList = $('<div>').addClass('subtask-list');
-	subtaskList.appendTo(taskItem);
-
-	return taskItem;
-}
-
-function appendBox(value) {
-	if (value.data('status') === 0) {
-		$('#todo .task-list').append(value);
-	} else if (value.data('status') > 0 && value.data('status') < 100) {
-		$('#doing .task-list').append(value);
-	} else if (value.data('status') === 100) {
-		$('#done .task-list').append(value);
-	}
-}
-
-function progress(percent, element) {
-  var progressBarWidth = percent * element.width() / 100;
-  element.find('.progress-inner').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
-}
-
-function showTaskForm(e) {
-	$('#task-input').appendTo('#todo .column-body');
-	$(e.currentTarget).hide();
-	$('#task-input').show();
-}
-
 function createTask() {
 	var projectId = $('.project-info').attr('id');
 	var branchName = $('#branch-name').val();
@@ -160,47 +82,72 @@ function createTask() {
 		data: {task: {branch_name: branchName, user_story: userStory, due_date: dueDate}, project_id: projectId}
 	}).done(function(data) {
 		var item = constructTaskItem(data);
-		appendBox(item);
+		appendBox(item, data.status);
 	});
 }
 
+function createSubtask() {
+	var parentItem = $(this).parent().parent().parent().parent().parent().find('.task-item-box');
+	$.ajax({
+		url: '/create_subtask',
+		method: 'post',
+		dataType: 'json',
+		data: {
+			task: {
+				branch_name: parentItem.parent().find('#subtask-branch-name').val(),
+				user_story: parentItem.parent().find('#subtask-user-story').val(),
+				due_date: parentItem.parent().find('#subtask-due-date').val()
+			},
+			parent_id: parentItem.attr('id')
+		}
+	}).done(function(data) {
+		var newSubtask = constructTaskItem(data);
+		newSubtask.removeClass('task-item').addClass('subtask-item');
+		$('#' + data.parent_id).parent().find('.subtask-list').append(newSubtask);
+	});
+}
+
+function constructSubtaskItem(data) {
+	var subtask = _.template($('#subtask-item-template').html(), data);
+	return subtask;
+}
+
+function constructTaskItem(data) {
+	var task = _.template($('#task-item-template').html(), data);
+	return task;
+}
+
+function progress(percent, element) {
+	var progressBarWidth = percent * element.width() / 100;
+	element.find('.progress-inner').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
+}
+
 function grabTasks() {
-	console.log('grabbing tasks');
 	$.ajax({
 		url: '/tasks',
 		method: 'get',
 		dataType: 'json',
 		data: {projectId: $('.project-info').attr('id')}
 	}).done(function(data) {
-		//CONSTRUCT TASK BOXES
 		var boxes = [];
 		$.each(data, function(index, value) {
-			boxes.push(constructTaskItem(value));
-			// progress(value.status, $('#' + value.id).find('.progress-bar'));
-		});
-		console.log('boxes');
-		console.log(boxes);
-		//APPEND BOXES TO DOM
-		var topLevels = $.grep(boxes, function(value) {
-			return value.data('parent_id') === null;
-		});
-		console.log('topLevels');
-		console.log(topLevels);
-		while (boxes.length > topLevels.length) {
-			if (boxes[0].data('parent_id') !== null) {
-				var currentBox = boxes.splice(0, 1)[0];
-				var parent = boxes[$.inArray($.grep(boxes, function(value) { return value.data('id') === currentBox.data('parent_id'); })[0], boxes)];
-				var subtaskBox = $('<div>').addClass('subtask-item');
-				subtaskBox.append($(currentBox).children());
-				console.log($(currentBox).children());
-				parent.find('.subtask-list').append(subtaskBox);
+			if (value.parent_id === null) {
+				var taskItem = constructTaskItem(value);
+				appendBox(taskItem, value.status);
+				progress(value.status, $('#' + value.id).find('.progress-bar'));
+				$('#' + value.id).find('.task-menu-button').click(openTaskMenu);
+			} else {
+				boxes.push(index);
 			}
-		}
-		$.each(boxes, function(index, value) {
-			appendBox(value);
-			progress(value.data('status'), $('#' + value.data('id')).find('.progress-bar'));
 		});
+		
+		// APPEND SUBTASKS TO COLUMN
+		_.each(boxes, function (value) {
+			var subtask = constructSubtaskItem(this[value]);
+			$('li[data-id="' + this[value].parent_id + '"] .subtask-list').append(subtask);
+		}, data);
 
+		// ADD USER FROM SIDE BAR
 		$('.task-view-assignees').droppable({
 			accept: '.user-list li',
 			scope: 'users',
@@ -214,16 +161,20 @@ function grabTasks() {
 				$(this).append(listItem);
 			}
 		});
+		
+		// REMOVE USER ON DBLCLICK
 		$('.task-view-assignees li').dblclick(function(e) {
 			var task = $(e.currentTarget).parent().parent().parent().attr('id');
 			var user = $(e.currentTarget).find('img').attr('id');
 			removeUser(task, user);
 			$(e.currentTarget).remove();
 		});
+		
+		// SORT TASKS (IN COLUMNS)
 		$('.task-list').sortable({
 			items: 'li:not(.subtask-item)',
 			cancel: '.subtask-item',
-			containment: '.task-list',
+			// containment: '.task-list',
 			revert: 'invalid'
 		});
 		$('.task-list .subtask-item').disableSelection();
@@ -239,8 +190,9 @@ var projectShow = function() {
 		$('#project-notice').trigger('openModal');
 	}
 
-	// REVEAL TASK FORM
+	// REVEAL & CLOSE TASK FORM
 	$('#reveal-task-form').click(showTaskForm);
+	$('.task-form-close').click(hideTaskForm);
 
 	//CLICK EVENTS
 	$('#task-input-submit').click(createTask);
@@ -248,11 +200,6 @@ var projectShow = function() {
 
 	grabTasks();
 
-	// //SORTABLES
-	// $('.task-list').sortable({
-	// 	nested: false,
-	// 	exclude: 'li'
-	// });
 	$('.user-list li').draggable({
 		scope: 'users',
 		revert: 'invalid',

@@ -1,135 +1,180 @@
 <div id="side-bar">
-	<div class="side-bar-content">
-		<p class="project-info" id="<%= @project.id %>" data="<%= @project.master_status %>"><%= @project.name %></p>
-		<ul class="user-list">
-			<% @collaborators.each do |user| %>
-				<li class="user"><img src="<%= user.avatar_url %>" class="avatar" id="<%= user.username %>"></li>
-			<% end %>
-		</ul>
-	</div>
+  <div class="side-bar-content">
+    <p class="project-info" id="<%= @project.id %>" data="<%= @project.master_status %>"><%= @project.name %></p>
+    <ul class="user-list">
+      <% @collaborators.each do |user| %>
+      <li class="user"><img src="<%= user.avatar_url %>" class="avatar" id="<%= user.username %>"></li>
+      <% end %>
+    </ul>
+  </div>
+  <ul class="side-bar-footer">
+    <li><a href="">My Projects</a></li>
+    <li><a href="">User's Guide</a></li>
+    <li><a href="">About Trakr</a></li>
+  </ul>
 </div>
 
 <!-- CONTENTS -->
 <div id="content">
-	<div id="tasks">
-		<div class="task-column" id="todo">
-			<div class="column-header">
-				<h3>To Do</h3>
-			</div>
-			<div class="column-body">
-				<ul class="task-list"></ul>
-				<p id="reveal-task-form">Add User Story</p>
-			</div>
-		</div>
-		<div class="task-column" id="doing">
-			<div class="column-header">
-				<h3>Doing</h3>
-			</div>
-			<div class="column-body">
-				<ul class="task-list"></ul>
-			</div>
-		</div>
-		<div class="task-column" id="done">
-			<div class="column-header">
-				<h3>Done</h3>
-			</div>
-			<div class="column-body">
-				<ul class="task-list"></ul>
-			</div>
-		</div>
-		<div class="task-column" id="icebox">
-			<div class="column-header">
-				<h3>Ice Box</h3>
-			</div>
-			<div class="column-body">
-			</div>
-		</div>
-	</div>
-	<div class="clear"></div>
+  <div id="tasks">
+    <div class="task-column" id="todo">
+      <div class="column-header">
+        <h3>To Do</h3>
+      </div>
+      <div class="column-body">
+        <ul class="task-list"></ul>
+        <p id="reveal-task-form">Add User Story</p>
+      </div>
+    </div>
+    <div class="task-column" id="doing">
+      <div class="column-header">
+        <h3>Doing</h3>
+      </div>
+      <div class="column-body">
+        <ul class="task-list"></ul>
+      </div>
+    </div>
+    <div class="task-column" id="done">
+      <div class="column-header">
+        <h3>Done</h3>
+      </div>
+      <div class="column-body">
+        <ul class="task-list"></ul>
+      </div>
+    </div>
+    <div class="task-column" id="icebox">
+      <div class="column-header">
+        <h3>Ice Box</h3>
+      </div>
+      <div class="column-body">
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
 </div>
 
 <div id="task-input">
-	<div id="task-input-inner">
-		<div class="task-input-header">
-			<h3>Add new user story</h3>
-		</div>
-		<div class="task-input-content">
-			<div class="task-form">
-				<p>Branch Name</p>
-				<p>tr_<input type="text" id="branch-name"></p>
-				<p>User Story</p>
-				<p><input type="text" id="user-story"></p>
-				<p>Due Date</p>
-				<p><input type="date" id="due-date"></p>
-				<input type="submit" id="task-input-submit">
-			</div>
-		</div>
-	</div>
+  <div id="task-input-inner">
+    <div class="task-input-header">
+      <h3>Add new user story</h3>
+      <div class="task-form-close"><i class="fa fa-times-circle-o"></i></div>
+    </div>
+    <div class="task-input-content">
+      <div class="task-form">
+        <p class="form-label">Branch Name</p>
+        <input type="text" id="branch-name">
+        <p class="form-label">User Story</p>
+        <textarea id="user-story"></textarea>
+        <p class="form-label">Due Date</p>
+        <input type="date" id="due-date">
+        <input type="submit" id="task-input-submit">
+      </div>
+    </div>
+  </div>
 </div>
 
 <div id="subtask-input">
-	<div id="subtask-input-inner">
-		<div class="subtask-input-header">
-			<h3>Add New Subtask</h3>
-			<hr>
-		</div>
-		<div class="subtask-input-content">
-			<div class="subtask-form">
-				<p>Branch Name</p>
-				<p>tr_<input type="text" id="subtask-branch-name"></p>
-				<p>User Story</p>
-				<p><input type="text" id="subtask-user-story"></p>
-				<p>Due Date</p>
-				<p><input type="date" id="subtask-due-date"></p>
-				<input type="submit" id="subtask-input-submit">
-			</div>
-		</div>
-	</div>
+  <div id="subtask-input-inner">
+    <div class="subtask-input-header">
+      <h3>Add New Subtask</h3>
+      <div class="task-form-close"><i class="fa fa-times-circle-o"></i></div>
+    </div>
+    <div class="clear"></div>
+    <div class="subtask-input-content">
+      <div class="subtask-form">
+        <p class="form-label">Branch Name</p>
+        <input type="text" id="subtask-branch-name">
+        <p class="form-label">User Story</p>
+        <textarea id="subtask-user-story"></textarea>
+        <p class="form-label">Due Date</p>
+        <input type="date" id="subtask-due-date">
+        <input type="submit" id="subtask-input-submit">
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- GITHUB NOTICE UPON PROJECT CREATION -->
 <div id="project-notice">
-	<div id="project-notice-inner">
-		<div class="project-notice-header">
-			<h3>You have successfully created a Github Repository!</h3>
-		</div>
-		<div class="project-notice-content">
-			<div class="form-wrap">
-			<h2>Create a new repository on the command line</h2>
-			<hr>
-				<pre>touch README.md</pre>
-				<pre>git init</pre>
-				<pre>git add README.md</pre>
-				<pre>git commit -m "first commit"</pre>
-				<pre>git remote add origin git@github.com:<%= "#{@project.author}/#{@project.name}.git" %></pre>
-				<pre>git push -u origin master</pre>
-				<input type="submit" id="project-notice-submit" value="Okay">
-			</div>
-		</div>
-	</div>
+  <div id="project-notice-inner">
+    <div class="project-notice-header">
+      <h3>You have successfully created a Github Repository!</h3>
+    </div>
+    <div class="project-notice-content">
+      <div class="form-wrap">
+        <h2>Create a new repository on the command line</h2>
+        <hr>
+        <pre>touch README.md</pre>
+        <pre>git init</pre>
+        <pre>git add README.md</pre>
+        <pre>git commit -m "first commit"</pre>
+        <pre>git remote add origin git@github.com:<%= "#{@project.author}/#{@project.name}.git" %></pre>
+        <pre>git push -u origin master</pre>
+        <input type="submit" id="project-notice-submit" value="Okay">
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- BACKBONE TEMPLATES -->
+<!-- TASK TEMPLATES -->
 <script type="text/template" id="task-item-template">
-	<div class="task-item-box">
-		<div class="task-box-header">
-			<h3>Branch: <%%= branch_name %></h3>
-			<div class="clear"></div>
-		</div>
-		<div class="task-box-content">
-			<p>User Story: <%%= user_story %></p>
-			<p><%%= due_date %></p>
-			<p><%%= status %></p>
-		</div>
-		<div class="task-box-footer">
-			<ul class="tasks-view-asignees">
-				
-			</ul>
-			
-		</div>
-	</div>
+<li class="task-item" data-id="<%%= id %>" data-parent-id="<%%= parent_id %>" data-stage="<%%= stage %>" data-status="<%%= status %>">
+    <div class="task-item-box" id="<%%= id %>">
+      <div class="task-box-header">
+        <h3><i class="fa fa-code-fork"></i><%%= branch_name %></h3>
+        <div class="task-menu-button closed"><i class="fa fa-caret-square-o-down"></i></div>
+      </div>
+      <div class="clear"></div>
+      <div class="task-box-content">
+        <div class="user-story-box">
+          <p class="user-story-label">User Story:</p>
+          <p class="due-date"><i class="fa fa-calendar"></i><%%= due_date %></p>
+          <div class="clear"></div>
+          <p class="user-story"><%%= user_story %></p>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-inner"></div>
+        </div>
+      </div>
+      <div class="task-box-footer">
+        <ul class="task-view-assignees">
+          <%% _.each(users, function(user) { %>
+            <li class="task-assignee"><img src="<%%= user[0] %>" id="<%%= user[1] %>"></li>
+          <%% }); %>
+        </ul>
+      </div>
+    </div>
+    <div class="subtask-list"></div>
+  </li>
+</script>
+
+<script type="text/template" id="subtask-item-template">
+    <div class="task-item-box" id="<%%= id %>" data-parent-id="<%%= parent_id %>" data-stage="<%%= stage %>" data-status="<%%= status %>">
+      <div class="task-box-header">
+        <h3><i class="fa fa-code-fork"></i><%%= branch_name %></h3>
+      </div>
+      <div class="clear"></div>
+      <div class="task-box-content">
+        <div class="user-story-box">
+          <p class="user-story-label">User Story:</p>
+          <p class="due-date"><i class="fa fa-calendar"></i><%%= due_date %></p>
+          <div class="clear"></div>
+          <p class="user-story"><%%= user_story %></p>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-inner"></div>
+        </div>
+      </div>
+      <div class="task-box-footer">
+        <ul class="task-view-assignees">
+          <%% _.each(users, function(user) { %>
+            <li class="task-assignee"><img src="<%%= user[0] %>" id="<%%= user[1] %>"></li>
+          <%% }); %>
+        </ul>
+      </div>
+    </div>
 </script>
 
 <%= javascript_tag do %>
-	projectShow();
+projectShow();
 <% end %>
