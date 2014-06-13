@@ -11,7 +11,6 @@
  * file per style scope.
  *
  *= require_reset
- *= require_jquery.gridster
  *= require_tree .
  *= require_self
  */
