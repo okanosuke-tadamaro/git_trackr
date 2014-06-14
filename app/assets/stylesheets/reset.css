@@ -58,8 +58,8 @@ form {
 
 select, input, textarea, button { 
      vertical-align:middle; 
-     font-family: 'Roboto',
-     position:relative; 
+     font-family: 'Roboto';
+     position: relative;
      margin: 0 4px 2px 0;
      *margin-right:3px; 
      top:-1px;  
