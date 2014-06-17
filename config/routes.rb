@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # SIGNIN & SIGNOUT
   get   "/auth/:provider/callback" => "sessions#create"
   get   "/signout" => "sessions#destroy"
+  get   "/guide" => "sessions#guide"
 
   post "/create_project" => "projects#create"
   get "/check_collaborator" => "projects#check_github_user"

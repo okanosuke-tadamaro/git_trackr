@@ -91,7 +91,7 @@ class Project < ActiveRecord::Base
 	end
 
 	def update_project(client)
-		# UPDATE USER STORIES
+		# UPDATE EXISTING USER STORIES
 		self.tasks.each do |task|
 			begin
 				branch_commits = client.commits(self.author + '/' + self.name, task.branch_name).map { |commit| {last_commit: commit[:commit][:author][:date], message: commit[:commit][:message]} }
@@ -103,6 +103,20 @@ class Project < ActiveRecord::Base
 					task.update(last_commit: commit[:last_commit], status: commit[:message].scan(/\btr_\d*\b/).first.gsub('tr_', '').to_i)
 					break
 				end
+			end
+		end
+
+		#GRAB NEW TASKS CREATED EXTERNALLY
+		branches = client.branches(self.author + '/' + self.name)
+		tasks = self.tasks.map { |task| task.branch_name }
+		branch_names = branches.map { |branch| branch[:name] }
+		branch_names.delete("master") && branch_names.delete("development")
+		new_branches = branch_names - tasks
+		if !new_branches.empty?
+			new_branches.each do |branch|
+				new_branch = client.commits(self.author + '/' + self.name, branch)
+				branch_status = new_branch.first[:commit][:message].include?('tr_') ? branch[:commit][:message].scan(/\btr_\d*\b/).first.gsub('tr_', '').to_i : 0
+				new_task = self.tasks.create(branch_name: branch, due_date: Date.today + 1.week, status: branch_status, priority: 0, stage: 'todo')
 			end
 		end
 	end
