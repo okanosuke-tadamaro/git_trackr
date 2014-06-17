@@ -87,7 +87,7 @@ class Project < ActiveRecord::Base
 		updated = self.tasks.order(last_commit: :desc).first.last_commit
 		self.update(updated_at: updated)
 		github_repo = client.repository(self.author + '/' + self.name)
-		return true if github_repo.pushed_at > (self.updated_at.to_time + 1.minutes)
+		return true if github_repo.pushed_at > (self.updated_at.to_time)
 	end
 
 	def update_project(client)
