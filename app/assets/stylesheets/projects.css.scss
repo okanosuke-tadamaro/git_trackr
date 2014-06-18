@@ -150,7 +150,10 @@ $taskboxbgcolor: white;
 							#task-menu {
 								font-size: 12px;
 								text-transform: uppercase;
-								li:hover { color: #48D583; cursor: pointer; };
+                .add-subtask {
+                  color: white;
+                }
+								li:hover { cursor: pointer; };
 							}
 						}
 						.task-box-content {
