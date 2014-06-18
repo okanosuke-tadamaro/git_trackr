@@ -116,7 +116,7 @@ class Project < ActiveRecord::Base
 			new_branches.each do |branch|
 				new_branch = client.commits(self.author + '/' + self.name, branch)
 				branch_status = new_branch.first[:commit][:message].include?('tr_') ? branch[:commit][:message].scan(/\btr_\d*\b/).first.gsub('tr_', '').to_i : 0
-				new_task = self.tasks.create(branch_name: branch, due_date: Date.today + 1.week, status: branch_status, priority: 0, stage: 'todo')
+				new_task = self.tasks.create(branch_name: branch, due_date: Date.today + 1.week, status: branch_status, priority: 0, stage: 'todo', last_commit: Time.now.to_datetime)
 			end
 		end
 	end

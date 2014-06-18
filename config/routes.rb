@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   delete "/remove_user" => "tasks#remove_user"
   post "/add_user" => "tasks#add_user"
   put "/set_order" => "tasks#set_order"
+  put "/update_story" => "tasks#update_story"
 
   resources :projects
   resources :tasks

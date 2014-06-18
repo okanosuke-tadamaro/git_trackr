@@ -81,6 +81,16 @@ class TasksController < ApplicationController
 		end
 	end
 
+  def update_story
+    task = Task.find(params[:task_id].to_i)
+    task.update(user_story: params[:story])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: task.to_json }
+    end
+  end
+
 	private
 
 	def task_params

@@ -203,6 +203,30 @@ function grabTasks() {
 	});
 }
 
+function editStory(e) {
+  e.stopPropagation();
+  var userStoryForm = $('<textarea>').addClass('edit-story').text(e.currentTarget.innerHTML);
+  $(e.currentTarget).hide();
+  userStoryForm.insertAfter($(e.currentTarget));
+  userStoryForm.focus();
+}
+
+function saveStory() {
+  var story = $('.edit-story');
+  var task = story.parent().parent().parent().attr('id');
+  $.ajax({
+    url: '/update_story',
+    method: 'put',
+    dataType: 'json',
+    data: {task_id: task, story: story.val()}
+  }).done(function(data) {
+    var story = $('.edit-story').parent().find('.user-story');
+    $('.edit-story').remove();
+    story.text(data.user_story);
+    story.show();
+  });
+}
+
 var projectShow = function() {
 	console.log('projectShow triggered');
 
@@ -227,4 +251,11 @@ var projectShow = function() {
 		revert: 'invalid',
 		helper: 'clone'
 	});
+
+  $('.task-list').on('dblclick', '.user-story', editStory);
+  $(document).click(function(e) {
+    if ($('.edit-story').length !== 0  && !$(e.target).hasClass('edit-story')) {
+      saveStory();
+    }
+  });
 };
