@@ -67,12 +67,15 @@ class Project < ActiveRecord::Base
 		return true
 	end
 
-	def update_collaborators(current_user, collab_string)
-		collaborators = collab_string.split(' ')
-		filtered_collaborators = collaborators.reject { |collaborator| collaborator == current_user.username }
+	def update_collaborators(current_user, collaborators)
+		formatted_collaborators = collaborators.map { |collaborator| [collaborator.last.first, collaborator.last.last] }
+		filtered_collaborators = formatted_collaborators.reject { |collaborator| collaborator.first == current_user.username }
 		self.users = []
 		self.users << current_user
-		filtered_collaborators.each { |collaborator| self.users << User.find_by(username: collaborator) }
+		filtered_collaborators.each do |collaborator|
+			User.create(username: collaborator.first, avatar_url: collaborator.last) if !User.exists?(username: collaborator.first)
+			self.users << User.find_by(username: collaborator.first)
+		end
 		return true
 	end
 

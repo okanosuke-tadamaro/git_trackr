@@ -63,7 +63,7 @@ class ProjectsController < ApplicationController
 		project = Project.find(params[:id])
 		project.update_repository(project_params, client)
 		project.update(project_params)
-		project.update_collaborators(current_user, params[:collaborator_names])
+		project.update_collaborators(current_user, params[:collaborators])
 		project.update_github_collaborators(client, current_user)
 		return_data = project.construct_return_data(current_user)
 

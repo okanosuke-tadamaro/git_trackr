@@ -85,6 +85,7 @@ function editProject(e) {
 	$('.taggable-list .tagged-list-item').remove();
 	item.find('.projects-view-collaborators img').each(function(index, value) {
 		var listItem = $('<li class="tagged-list-item"><span class="tagged">' + $(value).attr('id') + ' </span></li>');
+		listItem.data('avatar_url', $(value).attr('src'));
 		var deleteButton = $('<span class="delete-button">x</span>');
 		deleteButton.click(function() {
 			this.parentNode.remove();
@@ -136,20 +137,23 @@ var userShow = function() {
 		var projectName = $('#project-name').val();
 		var projectDescription = $('#project-description').val();
 		var projectEndDate = $('#project-date').val();
-		var projectCollaborators = $('.taggable-list').find('span.tagged').text();
-		var collaboratorAvatars = [$('#user-avatar').attr('src')];
-		
-		for(var i = 0; i < $('.tagged-list-item').length; i++) {
-			collaboratorAvatars.push($('.tagged-list-item').eq(i).data('avatar_url'));
-		}
-
+		var projectCollaborators = $('.taggable-list').find('span.tagged').text().split(' ');
+		projectCollaborators.splice(projectCollaborators.length - 1, 1);
+		var collaboratorData = [];
+		$(projectCollaborators).each(function(index, value) {
+			var avatar = $(".tagged:contains('" + value + "')").parent().data('avatar_url');
+			collaboratorData.push([value, avatar]);
+		});
+		// for(var i = 0; i < $('.tagged-list-item').length; i++) {
+		// 	collaboratorAvatars.push($('.tagged-list-item').eq(i).data('avatar_url'));
+		// }
 		var editedProject = {name: projectName, description: projectDescription, end_date: projectEndDate};
-
+    
 		$.ajax({
 			url: '/projects/' + $('#project-edit-submit').data('id'),
 			method: 'put',
 			dataType: 'json',
-			data: {project: editedProject, collaborators_avatars: collaboratorAvatars, collaborator_names: projectCollaborators}
+			data: {project: editedProject, collaborators: collaboratorData}
 		}).done(function(data) {
 			var targetBox = $('#' + data.id);
 			targetBox.find('h3 a').text(data.name);

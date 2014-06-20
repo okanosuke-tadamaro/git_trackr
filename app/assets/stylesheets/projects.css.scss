@@ -132,6 +132,7 @@ $taskboxbgcolor: white;
 				.task-item {
 					margin-bottom: 10px;
 					.task-item-box {
+            outline: solid 1px #f5f5f5;
 						.task-box-header {
 							height: 30px;
 							line-height: 30px;
@@ -139,6 +140,7 @@ $taskboxbgcolor: white;
 							background-color: #59D9BD;
 							h3 {
 								font-weight: normal;
+                font-size: 14px;
 								float: left;
 								color: white;
 								i { margin-right: 5px; }
@@ -157,10 +159,9 @@ $taskboxbgcolor: white;
 							}
 						}
 						.task-box-content {
-							padding: 10px;
 							background-color: #EEFBF8;
 							.user-story-box {
-								margin-bottom: 10px;
+                padding: 10px;
 								.user-story-label {
 									float: left;
 									text-transform: uppercase;
