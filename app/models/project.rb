@@ -84,10 +84,11 @@ class Project < ActiveRecord::Base
 	end
 
 	def out_of_sync?(client)
-		updated = self.tasks.order(last_commit: :desc).first.last_commit
-		self.update(updated_at: updated)
-		github_repo = client.repository(self.author + '/' + self.name)
-		return true if github_repo.pushed_at > (self.updated_at.to_time)
+		# updated = self.tasks.order(last_commit: :desc).first.last_commit
+		# self.update(updated_at: updated)
+		# github_repo = client.repository(self.author + '/' + self.name)
+		# return true if github_repo.pushed_at > (self.updated_at.to_time)
+		true
 	end
 
 	def update_project(client)
@@ -116,7 +117,7 @@ class Project < ActiveRecord::Base
 			new_branches.each do |branch|
 				new_branch = client.commits(self.author + '/' + self.name, branch)
 				branch_status = new_branch.first[:commit][:message].include?('tr_') ? branch[:commit][:message].scan(/\btr_\d*\b/).first.gsub('tr_', '').to_i : 0
-				new_task = self.tasks.create(branch_name: branch, due_date: Date.today + 1.week, status: branch_status, priority: 0, stage: 'todo', last_commit: Time.now.to_datetime)
+				new_task = self.tasks.create(branch_name: branch, due_date: Date.today + 1.week, status: branch_status, priority: 0, stage: 'todo', last_commit: Time.now)
 			end
 		end
 	end
