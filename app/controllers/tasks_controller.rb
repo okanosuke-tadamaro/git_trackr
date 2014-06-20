@@ -16,7 +16,7 @@ class TasksController < ApplicationController
 		params[:task][:branch_name] = params[:task][:branch_name].gsub(' ', '_')
 		project = Project.find(params[:project_id].to_i)
 		task = project.tasks.create(task_params)
-		task.update(status: 0, stage: 'todo', priority: 0, last_commit: Time.now)
+		task.update(stage: 'todo', priority: 0)
 
 		#Create new branch on github
 		task.create_task_branch(client)

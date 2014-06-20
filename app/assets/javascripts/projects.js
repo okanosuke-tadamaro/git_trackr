@@ -139,15 +139,14 @@ function grabTasks() {
   dataType: 'json',
   data: {projectId: $('.project-info').attr('id')}
   }).done(function(data) {
-    debugger;
     $('.task-list').empty();
     var boxes = [];
     $.each(data, function(index, value) {
       if (value.parent_id === null) {
         var taskItem = constructTaskItem(value);
         appendBox(taskItem, value.status);
-        progress(value.status, $('#' + value.id).find('.progress-bar'));
-        $('#' + value.id).find('.task-menu-button').click(openTaskMenu);
+        progress(value.status, $('#task-' + value.id).find('.progress-bar'));
+        $('#task-' + value.id).find('.task-menu-button').click(openTaskMenu);
       } else {
         boxes.push(index);
       }
@@ -174,7 +173,7 @@ function grabTasks() {
         if (!_.contains(assignees, $(ui.draggable.context).find('img').attr('id'))) {
           var img = $(ui.draggable.context).find('img').clone().removeClass('avatar');
           var listItem = $('<li>').addClass('task-assignee').addClass('ui-draggable');
-          var task = $(this).parent().parent().attr('id');
+          var task = $(this).parent().parent().attr('id').replace('task-','');
           img.appendTo(listItem);
           addUser(parseInt(task), img.attr('id'));
           $(this).append(listItem);

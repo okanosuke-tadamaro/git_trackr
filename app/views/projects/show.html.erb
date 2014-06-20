@@ -119,7 +119,7 @@
 <!-- TASK TEMPLATES -->
 <script type="text/template" id="task-item-template">
 <li class="task-item" data-id="<%%= id %>" data-parent-id="<%%= parent_id %>" data-stage="<%%= stage %>" data-status="<%%= status %>">
-    <div class="task-item-box" id="<%%= id %>">
+    <div class="task-item-box" id="task-<%%= id %>">
       <div class="task-box-header">
         <h3><i class="fa fa-code-fork"></i><%%= branch_name %></h3>
         <div class="task-menu-button closed"><i class="fa fa-caret-square-o-down"></i></div>
@@ -149,7 +149,7 @@
 </script>
 
 <script type="text/template" id="subtask-item-template">
-    <div class="task-item-box" id="<%%= id %>" data-parent-id="<%%= parent_id %>" data-stage="<%%= stage %>" data-status="<%%= status %>">
+    <div class="task-item-box" id="task-<%%= id %>" data-parent-id="<%%= parent_id %>" data-stage="<%%= stage %>" data-status="<%%= status %>">
       <div class="task-box-header">
         <h3><i class="fa fa-code-fork"></i><%%= branch_name %></h3>
       </div>
