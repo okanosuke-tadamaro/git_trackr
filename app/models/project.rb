@@ -84,41 +84,90 @@ class Project < ActiveRecord::Base
 	end
 
 	def out_of_sync?(client)
-		updated = self.tasks.order(last_commit: :desc).first.last_commit
-		self.update(updated_at: updated)
-		github_repo = client.repository(self.author + '/' + self.name)
-		return true if github_repo.pushed_at > (self.updated_at.to_time)
+		# updated = self.tasks.order(last_commit: :desc).first.last_commit
+		# github_repo = client.repository(self.author + '/' + self.name)
+		# return true if github_repo.pushed_at > (self.updated_at.to_time)
+		true
 	end
 
 	def update_project(client)
-		# UPDATE EXISTING USER STORIES
+		branches = client.branches(self.author + '/' + self.name)
+		tasks = self.tasks.map { |task| task.branch_name }
+		branch_names = branches.map { |branch| branch[:name] }
+		branch_names.delete("master") && branch_names.delete("development")
+		new_branch_names = branch_names - tasks
+		if !new_branch_names.empty?
+			new_branch_names.each do |branch|
+				if branch.include?('tr_')
+					new_branch = client.branch(self.author + '/' + self.name, branch)
+					new_task = self.tasks.create(branch_name: branch, due_date: Date.today + 1.week, priority: 0, stage: 'todo')
+					History.create_history(new_task, new_branch[:commit])
+					status = new_branch[:commit][:commit][:message].include?('tr_') ? new_branch[:commit][:commit][:message].scan(/\btr_\d*\b/).first.gsub('tr_', '').to_i : 0
+					history = new_task.histories.create(commit_date: new_branch[:commit][:commit][:committer][:date], sha: new_branch[:commit][:sha], message: new_branch[:commit][:commit][:message], status: status)
+				end
+			end
+		end
+
 		self.tasks.each do |task|
 			begin
-				branch_commits = client.commits(self.author + '/' + self.name, task.branch_name).map { |commit| {last_commit: commit[:commit][:author][:date], message: commit[:commit][:message]} }
+				branch_commits = client.commits(self.author + '/' + self.name, task.branch_name)
 			rescue
-				branch_commits = []
+				break
 			end
 			branch_commits.each do |commit|
-				if commit[:last_commit] > task.last_commit && commit[:message].include?('tr_')
-					task.update(last_commit: commit[:last_commit], status: commit[:message].scan(/\btr_\d*\b/).first.gsub('tr_', '').to_i)
+				parent = !commit[:parents].empty? ? commit[:parents].first[:sha] : nil
+				valid_status
+				if !History.exists?(sha: commit[:sha]) && (task.histories.empty? || task.histories.exists?(sha: parent))
+					History.create_history(task, commit)
+				else
 					break
 				end
 			end
 		end
 
-		#GRAB NEW TASKS CREATED EXTERNALLY
-		branches = client.branches(self.author + '/' + self.name)
-		tasks = self.tasks.map { |task| task.branch_name }
-		branch_names = branches.map { |branch| branch[:name] }
-		branch_names.delete("master") && branch_names.delete("development")
-		new_branches = branch_names - tasks
-		if !new_branches.empty?
-			new_branches.each do |branch|
-				new_branch = client.commits(self.author + '/' + self.name, branch)
-				branch_status = new_branch.first[:commit][:message].include?('tr_') ? branch[:commit][:message].scan(/\btr_\d*\b/).first.gsub('tr_', '').to_i : 0
-				new_task = self.tasks.create(branch_name: branch, due_date: Date.today + 1.week, status: branch_status, priority: 0, stage: 'todo', last_commit: Time.now.to_datetime)
-			end
-		end
+		# # UPDATE EXISTING USER STORIES
+		# self.tasks.each do |task|
+		# 	begin
+		# 		branch_commits = client.commits(self.author + '/' + self.name, task.branch_name)
+		# 	rescue
+		# 		branch_commits = []
+		# 	end
+		# 	branch_commits.each do |commit|
+		# 		binding.pry
+		# 		if !History.exists?(sha: commit[:sha]) && task.histories.exists?(sha: commit[:parents].first[:sha])
+		# 			History.create_history(task, commit)
+		# 		else
+		# 			break
+		# 		end
+		# 	end
+		# end
+
+		# #GRAB NEW TASKS CREATED EXTERNALLY
+		# branches = client.branches(self.author + '/' + self.name)
+		# tasks = self.tasks.map { |task| task.branch_name }
+		# branch_names = branches.map { |branch| branch[:name] }
+		# branch_names.delete("master") && branch_names.delete("development")
+		# new_branches = branch_names - tasks
+		# if !new_branches.empty?
+		# 	new_branches.each do |branch|
+		# 		new_task = self.tasks.create(branch_name: branch, due_date: Date.today + 1.week, priority: 0, stage: 'todo')
+		# 		new_branch_commits = client.commits(self.author + '/' + self.name, branch)
+		# 		binding.pry
+		# 		new_branch_commits.each do |commit|
+		# 			if !History.exists?(sha: commit[:sha])
+		# 				History.create_history(new_task, commit)
+		# 			else
+		# 				break
+		# 			end	
+		# 		end
+  #       #branch_status = 0;
+  #       #new_branch.each do |commit|
+		# 		  # branch_status = new_branch.first[:commit][:message].include?('tr_') ? new_branch[:commit][:message].scan(/\btr_\d*\b/).first.gsub('tr_', '').to_i : 0
+          
+  #       #end_date
+		# 		#new_task = self.tasks.create(branch_name: branch, due_date: Date.today + 1.week, status: branch_status, priority: 0, stage: 'todo', last_commit: Time.now.to_datetime)
+		# 	end
+		# end
 	end
 
 end

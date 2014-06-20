@@ -45,9 +45,10 @@ body { height: 100%; font-family: 'Roboto Condensed'; color: #666; background-co
 		.user-list {
 			margin-top: 20px;
 			img {
-				width: 100px;
+				width: 80px;
+        padding: 5px;
 				border-radius: 50%;
-				border: solid 2px white;
+				border: solid 1px white;
 				margin-bottom: 10px;
 			}
 		}

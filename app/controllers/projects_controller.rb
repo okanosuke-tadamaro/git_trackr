@@ -13,9 +13,13 @@ class ProjectsController < ApplicationController
 	def show
 		@project = Project.find(params[:id])
 
-		if @project.tasks.any? && @project.out_of_sync?(client)
+		if @project.out_of_sync?(client)
 			@project.update_project(client)
 		end
+
+		# if @project.tasks.any? && @project.out_of_sync?(client)
+		# 	@project.update_project(client)
+		# end
 
 		@project.check_master(client)
 		@project.update(master_status: true) if !@project.master_status && @project.check_master(client)

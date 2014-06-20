@@ -195,7 +195,8 @@ $taskboxbgcolor: white;
 									font-size: 12px;
 									line-height: 15px;
 									width: 0;
-									background-color: #2ABB9B;
+									/*background-color: #2ABB9B;*/
+                  background: linear-gradient(to right, #59D9BD, #1A7461);
 								}
 							}
 						}
@@ -239,7 +240,8 @@ $taskboxbgcolor: white;
 							background-color: #ECF6FD;
 							.progress-bar {
 								.progress-inner {
-									background-color: #89C4F4;
+									/*background-color: #89C4F4;*/
+                  background: linear-gradient(to right, #DAECFC, #44A1EE);
 								}
 							}
 						}

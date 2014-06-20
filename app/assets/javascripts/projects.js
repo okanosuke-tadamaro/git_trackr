@@ -82,6 +82,9 @@ function createTask() {
     dataType: 'json',
     data: {task: {branch_name: branchName, user_story: userStory, due_date: dueDate}, project_id: projectId}
   }).done(function(data) {
+    $('#branch-name').val('');
+    $('#user-story').val('');
+    $('#due-date').val('');
     grabTasks();
     // var item = constructTaskItem(data);
     // appendBox(item, data.status);
@@ -98,12 +101,15 @@ function createSubtask() {
     data: {
       task: {
               branch_name: parentItem.parent().find('#subtask-branch-name').val(),
-    user_story: parentItem.parent().find('#subtask-user-story').val(),
-    due_date: parentItem.parent().find('#subtask-due-date').val()
+              user_story: parentItem.parent().find('#subtask-user-story').val(),
+              due_date: parentItem.parent().find('#subtask-due-date').val()
             },
     parent_id: parentId
     }
   }).done(function(data) {
+    $('#subtask-branch-name').val('');
+    $('#subtask-user-story').val('');
+    $('#subtask-due-date').val('');
     grabTasks();
     // var newSubtask = constructTaskItem(data);
     // newSubtask.removeClass('task-item').addClass('subtask-item');
@@ -133,6 +139,7 @@ function grabTasks() {
   dataType: 'json',
   data: {projectId: $('.project-info').attr('id')}
   }).done(function(data) {
+    debugger;
     $('.task-list').empty();
     var boxes = [];
     $.each(data, function(index, value) {

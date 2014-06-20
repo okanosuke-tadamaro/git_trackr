@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140609022245) do
+ActiveRecord::Schema.define(version: 20140619170513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "histories", force: true do |t|
+    t.date     "commit_date"
+    t.string   "sha"
+    t.text     "message"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "task_id"
+  end
+
+  add_index "histories", ["task_id"], name: "index_histories_on_task_id", using: :btree
 
   create_table "nested_tasks", force: true do |t|
     t.integer "task_id"
