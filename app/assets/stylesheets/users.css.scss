@@ -125,7 +125,7 @@ body { height: 100%; font-family: 'Roboto Condensed'; color: #666; background-co
 						}
 					}
 					.project-box-content {
-						height: 57px;
+						height: 50px;
 						padding: 10px;
 						background-color: #EEFBF8;
 						p { font-size: 14px; }
@@ -135,6 +135,9 @@ body { height: 100%; font-family: 'Roboto Condensed'; color: #666; background-co
 						overflow: hidden;
 						padding: 5px 10px 5px 10px;
 						.projects-view-collaborators {
+							height: 60px;
+							overflow: scroll;
+							margin-top: 5px;
 							li { display: inline; margin-right: 3px; }
 							img { height: 50px; border-radius: 50%; }
 						}
