@@ -102,10 +102,12 @@ function deleteProject() {
 	console.log('delete');
 }
 
+
+// USERS SHOW
 var userShow = function() {
 	console.log('userShow triggered');
 
-	//CREATE PROJECT
+	// SUBMIT FORM TO CREATE PROJECT
 	function createProject() {
 		$('#project-input').trigger('closeModal');
 		var projectName = $('#project-name').val();
@@ -130,6 +132,7 @@ var userShow = function() {
 		});
 	}
 
+	// SUBMIT FORM TO UPDATE PROJECT
 	function updateProject() {
 		$('#project-input').trigger('closeModal');
 		closeMenu($('#project-edit-submit').data('id'));
@@ -182,7 +185,7 @@ var userShow = function() {
 	getProjects();
 
 	//SETUP FORM
-	$('#project-input').easyModal({ top: 100, autoOpen: false, overlayOpacity: 0.3, overlayColor: "#333", overlayClose: false, closeOnEscape: true });
+	$('#project-input').easyModal({ top: 100, autoOpen: false, overlayOpacity: 0.3, overlayColor: "#333", overlayClose: true, closeOnEscape: true });
 	$('#project-collaborators').keypress(function(e) {
 		if (e.keyCode === 32) {
 			var collaboratorToCheck = $('#project-collaborators').val();
