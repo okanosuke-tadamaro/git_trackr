@@ -16,12 +16,12 @@ ActiveRecord::Schema.define(version: 20140609022245) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "nested_tasks", force: true do |t|
+  create_table "nested_tasks", force: :cascade do |t|
     t.integer "task_id"
     t.integer "subtask_id"
   end
 
-  create_table "projects", force: true do |t|
+  create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
     t.date     "begin_date"
@@ -34,12 +34,12 @@ ActiveRecord::Schema.define(version: 20140609022245) do
     t.integer  "repository_id"
   end
 
-  create_table "projects_users", id: false, force: true do |t|
+  create_table "projects_users", id: false, force: :cascade do |t|
     t.integer "project_id", null: false
     t.integer "user_id",    null: false
   end
 
-  create_table "tasks", force: true do |t|
+  create_table "tasks", force: :cascade do |t|
     t.string   "branch_name"
     t.string   "user_story"
     t.date     "due_date"
@@ -55,12 +55,12 @@ ActiveRecord::Schema.define(version: 20140609022245) do
 
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id", using: :btree
 
-  create_table "tasks_users", id: false, force: true do |t|
+  create_table "tasks_users", id: false, force: :cascade do |t|
     t.integer "task_id", null: false
     t.integer "user_id", null: false
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "avatar_url"
     t.string   "github_access_token"
