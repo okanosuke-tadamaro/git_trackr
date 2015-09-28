@@ -66,6 +66,9 @@ GEM
     execjs (2.6.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    foundation-rails (5.5.0.0)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0, < 3.4)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hike (1.2.3)
@@ -200,6 +203,7 @@ DEPENDENCIES
   binding_of_caller
   coffee-rails (~> 4.0.0)
   dotenv-rails
+  foundation-rails
   jbuilder (~> 2.0)
   jquery-rails
   octokit
