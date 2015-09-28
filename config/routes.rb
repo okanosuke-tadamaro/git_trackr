@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   
   # SIGNIN & SIGNOUT
   get "/auth/:provider/callback" => "sessions#create"
-  get "/signout" => "sessions#destroy"
+  get "/logout" => "sessions#destroy"
   get "/guide" => "sessions#guide"
+  get "/welcome" => 'static_pages#splash', as: :splash
 
   post "/create_project" => "projects#create"
   get "/check_collaborator" => "projects#check_github_user"

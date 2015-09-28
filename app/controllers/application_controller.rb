@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     if session[:github_access_token]
       return true
     else
-      redirect_to User.oauth_link
+      redirect_to splash_path
     end
   end
 
