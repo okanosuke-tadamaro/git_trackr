@@ -14,6 +14,9 @@
 //= require jquery_ujs
 //= require underscore
 //= require jquery-ui.min
+//= require velocity
 //= require taggableList
 //= require jquery.easyModal
-//= require_tree .
+//= require ./main
+//= require ./trackr_panel
+//= require ./trackr_dropdown

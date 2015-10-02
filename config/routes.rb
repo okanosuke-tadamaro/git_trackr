@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
-  root "users#show"
-  
+  root 'projects#index'
+
   # SIGNIN & SIGNOUT
-  get "/auth/:provider/callback" => "sessions#create"
+  # get "/auth/:provider/callback" => "sessions#create"
+  post '/login' => 'sessions#create'
   get "/logout" => "sessions#destroy"
   get "/guide" => "sessions#guide"
   get "/welcome" => 'static_pages#splash', as: :splash
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
   put "/set_order" => "tasks#set_order"
   put "/update_story" => "tasks#update_story"
 
+  resources :users, :only => [:create, :show]
   resources :projects
   resources :tasks
 

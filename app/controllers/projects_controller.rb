@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
 
-	before_action :signed_in?
+	before_action :require_user
 
 	def index
 		projects = Project.get_projects(current_user)
@@ -34,10 +34,10 @@ class ProjectsController < ApplicationController
 		project = Project.create(project_params)
 		project.update(begin_date: Date.today, master_status: false, dev_status: false, author: current_user.username)
 		current_user.projects << project
-	
+
 		#Create Repo on GitHub
 		project.create_repository(client)
-		
+
 		#Add Collaborators
 		collaborators = params[:collaborator_names].split(' ')
 		collaborators.each do |user|
