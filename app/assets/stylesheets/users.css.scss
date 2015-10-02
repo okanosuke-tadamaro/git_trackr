@@ -8,8 +8,6 @@ $projectboxbgcolor: white;
 .shadow { box-shadow: 0px 1px 3px rgba(255, 255, 255, 0.3); }
 .clear { clear: both; }
 
-body { height: 100%; font-family: 'Roboto Condensed'; color: #666; background-color: #f3f3f3; }
-
 #side-bar {
 	width: $sidebarwidth;
 	height: 100%;
@@ -40,7 +38,7 @@ body { height: 100%; font-family: 'Roboto Condensed'; color: #666; background-co
 			background-color: rgba(0, 0, 0, 0.1);
 		}
 		#trigger-project-input:hover {
-			background-color: rgba(0, 0, 0, 0.2);	
+			background-color: rgba(0, 0, 0, 0.2);
 		}
 		.user-list {
 			margin-top: 20px;
