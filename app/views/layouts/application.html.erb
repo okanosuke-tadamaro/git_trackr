@@ -1,73 +1,20 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>GitTrackr</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <div class="nav">
-    <div class="logo">
-      <img src="http://placehold.it/200x40" alt="" />
-    </div>
-    <div class="nav-menu">
-      <ul>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Something</a></li>
-        <% if signed_in? %>
-          <li>
-            <a href="#"><%= current_user.email %></a>
-            <ul class="dropdown">
-              <li><a href="#">Settings</a></li>
-              <li><a href="/logout">Logout</a></li>
-            </ul>
-          </li>
-        <% else %>
-          <li><a href="#" data-target="#loginPanel" class="panelTrigger">Login</a></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
+    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
 
-  <div class="container">
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+
     <%= yield %>
-  </div>
 
-  <div id="loginPanel" class="panel hidden">
-    <div class="panel-header">
-      <h3>Login to your account</h3>
-      <i class="fa fa-close closePanel"></i>
-    </div>
-    <div class="panel-body">
-      <%= form_tag('/login', method: 'post') do %>
-        <%= email_field_tag :email, '', placeholder: 'Email', class: 'input-field' %>
-        <%= password_field_tag :password, '', placeholder: 'Password', class: 'input-field' %>
-        <p>New user? <a href="#" data-target="#signupPanel" class="panelTrigger">Create an account</a>.</p>
-        <%= submit_tag 'Go', class: 'submit-button' %>
-      <% end %>
-    </div>
-  </div>
-
-  <div id="signupPanel" class="panel hidden">
-    <div class="panel-header">
-      <h3>Sign-up for an account</h3>
-      <i class="fa fa-close closePanel"></i>
-    </div>
-    <div class="panel-body">
-      <%= form_for User.new do |f| %>
-        <%= f.email_field :email, placeholder: 'Email', class: 'input-field' %>
-        <%= f.password_field :password, placeholder: 'Password', class: 'input-field' %>
-        <%= f.password_field :password_confirmation, placeholder: 'Password Confirmation', class: 'input-field' %>
-        <p>Already have an account? <a href="#" data-target="#loginPanel" class="panelTrigger">Login</a>.</p>
-        <%= f.submit 'Go', class: 'submit-button' %>
-      <% end %>
-    </div>
-  </div>
-
-</body>
+  </body>
 </html>

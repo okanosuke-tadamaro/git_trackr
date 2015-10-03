@@ -1,307 +1,307 @@
-$taskswidth: 980px + 15px;
-$taskboxmargin: 15px;
-$taskboxwidth: (980px - 45px) / 4;
-$taskboxheight: 180px;
-$taskboxbgcolor: white;
+// $taskswidth: 980px + 15px;
+// $taskboxmargin: 15px;
+// $taskboxwidth: (980px - 45px) / 4;
+// $taskboxheight: 180px;
+// $taskboxbgcolor: white;
 
-#task-input, #subtask-input {
-	display: none;
-	margin-top: 5px;
-	background-color: #EEFBF8;
-	#task-input-inner, #subtask-input-inner {
-		.task-input-header, .subtask-input-header {
-			padding: 10px;
-			height: 14px;
-			h3 {
-				float: left;
-				text-transform: uppercase;
-				font-size: 14px;
-				font-weight: normal;
-				line-height: 14px;
-				color: white;
-			}
-			.task-form-close {
-				float: right;
-				font-size: 14px;
-				line-height: 14px;
-				color: white;
-				cursor: pointer;
-			}
-		}
-		.task-input-content, .subtask-input-content {
-			padding: 10px;
-			.form-label {
-				font-size: 12px;
-				text-transform: uppercase;
-				margin-bottom: 5px;
-			}
-			.branch-form {
+// #task-input, #subtask-input {
+// 	display: none;
+// 	margin-top: 5px;
+// 	background-color: #EEFBF8;
+// 	#task-input-inner, #subtask-input-inner {
+// 		.task-input-header, .subtask-input-header {
+// 			padding: 10px;
+// 			height: 14px;
+// 			h3 {
+// 				float: left;
+// 				text-transform: uppercase;
+// 				font-size: 14px;
+// 				font-weight: normal;
+// 				line-height: 14px;
+// 				color: white;
+// 			}
+// 			.task-form-close {
+// 				float: right;
+// 				font-size: 14px;
+// 				line-height: 14px;
+// 				color: white;
+// 				cursor: pointer;
+// 			}
+// 		}
+// 		.task-input-content, .subtask-input-content {
+// 			padding: 10px;
+// 			.form-label {
+// 				font-size: 12px;
+// 				text-transform: uppercase;
+// 				margin-bottom: 5px;
+// 			}
+// 			.branch-form {
 				
-			}
-			input, textarea {
-				width: 100%;
-				margin-bottom: 10px;
-				border: none;
-				height: 25px;
-				padding: 0;
-				font-family: 'Roboto Condensed';
-				font-size: 14px;
-			}
-			textarea {
-				resize: vertical;
-				height: 40px;
-			}
-			input[type='submit'] {
-				background-color: #59D9BD;
-				height: 30px;
-				line-height: 30px;
-				color: white;
-				text-transform: uppercase;
-				font-size: 14px;
-				margin-top: 10px;
-				margin-bottom: 0;
-				cursor: pointer;
-			}
-			input[type='submit']:hover {
-				background-color: #2ABB9B;
-			}
-		}
-	}
-	#task-input-inner {
-		.task-input-header {
-			background-color: #2ABB9B;
-		}
-	}
-}
+// 			}
+// 			input, textarea {
+// 				width: 100%;
+// 				margin-bottom: 10px;
+// 				border: none;
+// 				height: 25px;
+// 				padding: 0;
+// 				font-family: 'Roboto Condensed';
+// 				font-size: 14px;
+// 			}
+// 			textarea {
+// 				resize: vertical;
+// 				height: 40px;
+// 			}
+// 			input[type='submit'] {
+// 				background-color: #59D9BD;
+// 				height: 30px;
+// 				line-height: 30px;
+// 				color: white;
+// 				text-transform: uppercase;
+// 				font-size: 14px;
+// 				margin-top: 10px;
+// 				margin-bottom: 0;
+// 				cursor: pointer;
+// 			}
+// 			input[type='submit']:hover {
+// 				background-color: #2ABB9B;
+// 			}
+// 		}
+// 	}
+// 	#task-input-inner {
+// 		.task-input-header {
+// 			background-color: #2ABB9B;
+// 		}
+// 	}
+// }
 
-#subtask-input {
-	margin-bottom: 10px;
-	background-color: #ECF6FD;
-	#subtask-input-inner {
-		.subtask-input-header {
-			background-color: #89C4F4;
-		}
-		.subtask-input-content {
-			input[type='submit'] {
-				background-color: #B4DAF8;
-			}
-			input[type='submit']:hover {
-				background-color: #89C4F4;
-			}
-		}
-	}
-}
+// #subtask-input {
+// 	margin-bottom: 10px;
+// 	background-color: #ECF6FD;
+// 	#subtask-input-inner {
+// 		.subtask-input-header {
+// 			background-color: #89C4F4;
+// 		}
+// 		.subtask-input-content {
+// 			input[type='submit'] {
+// 				background-color: #B4DAF8;
+// 			}
+// 			input[type='submit']:hover {
+// 				background-color: #89C4F4;
+// 			}
+// 		}
+// 	}
+// }
 
-#tasks {
-	.task-column {
-		width: 320px;
-		float: left;
-		margin-right: 10px;
-		background-color: $taskboxbgcolor;
-		min-height: 100px;
-		.column-header {
-			height: 40px;
-			background-color: #9BE8D8;
-			h3 {
-				float: right;
-				text-transform: uppercase;
-				line-height: 20px;
-				padding: 10px;
-				font-size: 16px;
-				color: white;
-				font-weight: normal;
-			}
-		}
-		.column-body {
-			padding: 10px;
-			#reveal-task-form {
-				text-align: center;
-				background-color: #59D9BD;
-				height: 30px;
-				font-size: 14px;
-				text-transform: uppercase;
-				line-height: 30px;
-				color: white;
-				margin-top: 5px;
-				cursor: pointer;
-			}
-			#reveal-task-form:hover {
-				background-color: #2ABB9B;
-			}
-			ul.task-list {
-				.task-item {
-					margin-bottom: 10px;
-					.task-item-box {
-						.task-box-header {
-							height: 30px;
-							line-height: 30px;
-							padding: 0 10px 0 10px;
-							background-color: #59D9BD;
-							h3 {
-								font-weight: normal;
-								float: left;
-								color: white;
-								i { margin-right: 5px; }
-							}
-							.task-menu-button {
-								float: right;
-								i { cursor: pointer; color: white; }
-							}
-							#task-menu {
-								font-size: 12px;
-								text-transform: uppercase;
-                .add-subtask {
-                  color: white;
-                }
-								li:hover { cursor: pointer; };
-							}
-						}
-						.task-box-content {
-							padding: 10px;
-							background-color: #EEFBF8;
-							.user-story-box {
-								margin-bottom: 10px;
-								.user-story-label {
-									float: left;
-									text-transform: uppercase;
-									font-size: 12px;
-									margin-bottom: 5px;
-								}
-								.due-date {
-									float: right;
-									font-size: 12px;
-									i { margin-right: 5px; vertical-align: top; }
-								}
-								.user-story {
-									font-size: 14px;
-									margin-top: 3px;
-								}
-                .edit-story {
-                  margin-top: 3px;
-                  font-size: 14px;
-                  font-family: 'Roboto Condensed';
-                  width: 100%;
-                  border: none;
-                }
-							}
-							.progress-bar {
-								width: 100%;
-								height: 15px;
-								background-color: white;
-								.progress-inner {
-									height: 100%;
-									color: #fff;
-									text-align: right;
-									font-size: 12px;
-									line-height: 15px;
-									width: 0;
-									background-color: #2ABB9B;
-								}
-							}
-						}
-						.task-box-footer {
-							height: 40px;
-							padding: 10px;
-							background-color: #CDF4EB;
-							.task-view-assignees {
-								height: 100%;
-								.task-assignee {
-									display: inline-block;
-									margin-right: 3px;
-									height: 40px;
-									overflow: hidden;
-									img {
-										border-radius: 50%;
-										border: solid 2px white;
-										height: 36px;
-									}
-								}
-							}
-						}
-					}
-				}
-				.subtask-list {
-					.task-item-box {
-						margin-top: 2px;
-						.task-box-header {
-							background-color: #B4DAF8;
-							.task-menu-button {
-								float: right;
-								i { cursor: pointer; }
-							}
-							#task-menu {
-								font-size: 12px;
-								text-transform: uppercase;
-								li:hover { color: #48D583; cursor: pointer; }
-							}
-						}
-						.task-box-content {
-							background-color: #ECF6FD;
-							.progress-bar {
-								.progress-inner {
-									background-color: #89C4F4;
-								}
-							}
-						}
-						.task-box-footer {
-							background-color: #DAECFC;
-						}
-					}
-				}
-			}
-		}
-	}
-	#done { margin-right: 0; }
-	#icebox { display: none; }
-}
+// #tasks {
+// 	.task-column {
+// 		width: 320px;
+// 		float: left;
+// 		margin-right: 10px;
+// 		background-color: $taskboxbgcolor;
+// 		min-height: 100px;
+// 		.column-header {
+// 			height: 40px;
+// 			background-color: #9BE8D8;
+// 			h3 {
+// 				float: right;
+// 				text-transform: uppercase;
+// 				line-height: 20px;
+// 				padding: 10px;
+// 				font-size: 16px;
+// 				color: white;
+// 				font-weight: normal;
+// 			}
+// 		}
+// 		.column-body {
+// 			padding: 10px;
+// 			#reveal-task-form {
+// 				text-align: center;
+// 				background-color: #59D9BD;
+// 				height: 30px;
+// 				font-size: 14px;
+// 				text-transform: uppercase;
+// 				line-height: 30px;
+// 				color: white;
+// 				margin-top: 5px;
+// 				cursor: pointer;
+// 			}
+// 			#reveal-task-form:hover {
+// 				background-color: #2ABB9B;
+// 			}
+// 			ul.task-list {
+// 				.task-item {
+// 					margin-bottom: 10px;
+// 					.task-item-box {
+// 						.task-box-header {
+// 							height: 30px;
+// 							line-height: 30px;
+// 							padding: 0 10px 0 10px;
+// 							background-color: #59D9BD;
+// 							h3 {
+// 								font-weight: normal;
+// 								float: left;
+// 								color: white;
+// 								i { margin-right: 5px; }
+// 							}
+// 							.task-menu-button {
+// 								float: right;
+// 								i { cursor: pointer; color: white; }
+// 							}
+// 							#task-menu {
+// 								font-size: 12px;
+// 								text-transform: uppercase;
+//                 .add-subtask {
+//                   color: white;
+//                 }
+// 								li:hover { cursor: pointer; };
+// 							}
+// 						}
+// 						.task-box-content {
+// 							padding: 10px;
+// 							background-color: #EEFBF8;
+// 							.user-story-box {
+// 								margin-bottom: 10px;
+// 								.user-story-label {
+// 									float: left;
+// 									text-transform: uppercase;
+// 									font-size: 12px;
+// 									margin-bottom: 5px;
+// 								}
+// 								.due-date {
+// 									float: right;
+// 									font-size: 12px;
+// 									i { margin-right: 5px; vertical-align: top; }
+// 								}
+// 								.user-story {
+// 									font-size: 14px;
+// 									margin-top: 3px;
+// 								}
+//                 .edit-story {
+//                   margin-top: 3px;
+//                   font-size: 14px;
+//                   font-family: 'Roboto Condensed';
+//                   width: 100%;
+//                   border: none;
+//                 }
+// 							}
+// 							.progress-bar {
+// 								width: 100%;
+// 								height: 15px;
+// 								background-color: white;
+// 								.progress-inner {
+// 									height: 100%;
+// 									color: #fff;
+// 									text-align: right;
+// 									font-size: 12px;
+// 									line-height: 15px;
+// 									width: 0;
+// 									background-color: #2ABB9B;
+// 								}
+// 							}
+// 						}
+// 						.task-box-footer {
+// 							height: 40px;
+// 							padding: 10px;
+// 							background-color: #CDF4EB;
+// 							.task-view-assignees {
+// 								height: 100%;
+// 								.task-assignee {
+// 									display: inline-block;
+// 									margin-right: 3px;
+// 									height: 40px;
+// 									overflow: hidden;
+// 									img {
+// 										border-radius: 50%;
+// 										border: solid 2px white;
+// 										height: 36px;
+// 									}
+// 								}
+// 							}
+// 						}
+// 					}
+// 				}
+// 				.subtask-list {
+// 					.task-item-box {
+// 						margin-top: 2px;
+// 						.task-box-header {
+// 							background-color: #B4DAF8;
+// 							.task-menu-button {
+// 								float: right;
+// 								i { cursor: pointer; }
+// 							}
+// 							#task-menu {
+// 								font-size: 12px;
+// 								text-transform: uppercase;
+// 								li:hover { color: #48D583; cursor: pointer; }
+// 							}
+// 						}
+// 						.task-box-content {
+// 							background-color: #ECF6FD;
+// 							.progress-bar {
+// 								.progress-inner {
+// 									background-color: #89C4F4;
+// 								}
+// 							}
+// 						}
+// 						.task-box-footer {
+// 							background-color: #DAECFC;
+// 						}
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+// 	#done { margin-right: 0; }
+// 	#icebox { display: none; }
+// }
 
-#task-menu {
-	display: none;
-	float: left;
-	z-index: 2;
-}
+// #task-menu {
+// 	display: none;
+// 	float: left;
+// 	z-index: 2;
+// }
 
-#project-notice {
-	display: none;
-	background-color: #f5f5f5;
-	border-radius: 5px;
-	width: 600px;
-	.project-notice-header {
-		height: 40px;
-		background-color: #48D583;
-		border-radius: 5px 5px 0 0;
-		h3 {
-			text-transform: uppercase;
-			line-height: 20px;
-			padding: 10px 0 0 10px;
-			font-size: 16px;
-			color: white;
-		}
-	}
-	.project-notice-content {
-		overflow: hidden;
-		padding: 15px;
-		.form-wrap {
-			margin-bottom: 10px;
-			width: 100%;
-			line-height: 25px;
-			font-size: 16px;
-			font-family: 'Roboto Condensed';
-			pre {
-				font-family: 'Inconsolata';
-				line-height: 20px;
-				font-size: 14px;
-			}
-			input[type='submit'] {
-				width: 100%;
-				margin-top: 10px;
-				margin-bottom: 0;
-				height: 40px;
-				background-color: #48D583;
-				color: white;
-				border-radius: 3px;
-				cursor: pointer;
-			}
-		}
-	}
-}
+// #project-notice {
+// 	display: none;
+// 	background-color: #f5f5f5;
+// 	border-radius: 5px;
+// 	width: 600px;
+// 	.project-notice-header {
+// 		height: 40px;
+// 		background-color: #48D583;
+// 		border-radius: 5px 5px 0 0;
+// 		h3 {
+// 			text-transform: uppercase;
+// 			line-height: 20px;
+// 			padding: 10px 0 0 10px;
+// 			font-size: 16px;
+// 			color: white;
+// 		}
+// 	}
+// 	.project-notice-content {
+// 		overflow: hidden;
+// 		padding: 15px;
+// 		.form-wrap {
+// 			margin-bottom: 10px;
+// 			width: 100%;
+// 			line-height: 25px;
+// 			font-size: 16px;
+// 			font-family: 'Roboto Condensed';
+// 			pre {
+// 				font-family: 'Inconsolata';
+// 				line-height: 20px;
+// 				font-size: 14px;
+// 			}
+// 			input[type='submit'] {
+// 				width: 100%;
+// 				margin-top: 10px;
+// 				margin-bottom: 0;
+// 				height: 40px;
+// 				background-color: #48D583;
+// 				color: white;
+// 				border-radius: 3px;
+// 				cursor: pointer;
+// 			}
+// 		}
+// 	}
+// }

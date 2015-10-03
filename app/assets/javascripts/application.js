@@ -12,11 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require underscore
 //= require jquery-ui.min
 //= require velocity
 //= require taggableList
 //= require jquery.easyModal
-//= require ./main
-//= require ./trackr_panel
-//= require ./trackr_dropdown
+
+$(function(){ $(document).foundation(); });
