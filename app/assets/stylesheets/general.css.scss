@@ -1,0 +1,15 @@
+$primary-color: #6CADE7;
+
+.reveal-modal {
+	.modal-header {
+		background-color: $primary-color;
+		padding: 10px 20px 10px 20px;
+		h4 {
+			margin: 0;
+			color: #FFF;
+		}
+	}
+	.modal-body {
+		padding: 10px 20px 10px 20px;
+	}
+}

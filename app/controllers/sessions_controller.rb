@@ -26,12 +26,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:github_access_token] = nil
+    session[:trakr_email] = nil
     redirect_to root_path
-  end
-
-  def guide
-
   end
 
 end
