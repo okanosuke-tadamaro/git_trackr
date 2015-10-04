@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(email: params[:email])
     if @user && @user.authenticate(params[:password])
-      session[:trakr_email] = @user.email
+      session[:email] = @user.email
       redirect_to root_path
     else
       redirect_to splash_path, notice: "Please check your information and try again."
@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:trakr_email] = nil
+    session[:email] = nil
     redirect_to root_path
   end
 

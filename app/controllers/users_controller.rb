@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      session[:trackr_email] = @user.email
+      session[:email] = @user.email
       redirect_to root_path, notice: "You're logged in!"
     else
       redirect_to splash_path, notice: "Invalid Request"
