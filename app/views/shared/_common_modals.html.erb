@@ -1,0 +1,38 @@
+<div id="loginModal" class="reveal-modal tiny" data-reveal>
+  <div class="modal-header">
+    <h4>Login</h4>
+  </div>
+  <div class="modal-body">
+    <%= form_tag('/login', method: 'post') do %>
+      <label>Email
+        <%= email_field_tag :email, '', placeholder: 'Email' %>
+      </label>
+      <label>Password
+        <%= password_field_tag :password, '', placeholder: 'Password' %>
+      </label>
+      <p>Don't have an account? <a href="#" data-reveal-id="signupModal">Sign up here</a>.</p>
+      <%= submit_tag 'Go', class: 'button expand small' %>
+    <% end %>
+  </div>
+</div>
+
+<div id="signupModal" class="reveal-modal tiny" data-reveal>
+  <div class="modal-header">
+    <h4>Sign up</h4>
+  </div>
+  <div class="modal-body">
+    <%= form_for User.new do |f| %>
+      <label>Email
+        <%= f.email_field :email, placeholder: 'Email' %>
+      </label>
+      <label>Password
+        <%= f.password_field :password, placeholder: 'Password' %>
+      </label>
+      <label>Password
+        <%= f.password_field :password_confirmation, placeholder: 'Password Confirmation' %>
+      </label>
+      <p>Are you an existing user? <a href="#" data-reveal-id="loginModal">Login here</a>.</p>
+      <%= f.submit 'Go', class: 'button expand small' %>
+    <% end %>
+  </div>
+</div>
